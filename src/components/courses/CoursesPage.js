@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as courseActions from '../../actions/courseActions';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class CoursesPage extends React.Component {
     constructor(props, context) {
@@ -30,7 +31,7 @@ class CoursesPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h1>Courses</h1>
                 {this.props.courses.map(this.courseRow)}
                 <h2>Add Courses</h2>
@@ -39,10 +40,11 @@ class CoursesPage extends React.Component {
                     onChange={this.onTitleChange}
                     value={this.state.course.title}/>
 
-                <input
+                <RaisedButton
                     type="submit"
                     onClick={this.onClickSave}
-                    value="Save"/>
+                    label="Save"></RaisedButton>
+
 
             </div>
         );
