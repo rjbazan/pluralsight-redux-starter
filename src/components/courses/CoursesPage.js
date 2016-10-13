@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as courseActions from '../../actions/courseActions';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class CoursesPage extends React.Component {
     constructor(props, context) {
@@ -33,10 +34,10 @@ class CoursesPage extends React.Component {
         return (
             <div className="container">
                 <h1>Courses</h1>
-                {this.props.courses.map(this.courseRow)}
+                {this.props.courses.map(this.courseRow) }
                 <h2>Add Courses</h2>
-                <input
-                    type="text"
+                <TextField
+                    hintText="Enter course name here"
                     onChange={this.onTitleChange}
                     value={this.state.course.title}/>
 
@@ -44,7 +45,7 @@ class CoursesPage extends React.Component {
                     type="submit"
                     onClick={this.onClickSave}
                     label="Save"></RaisedButton>
-
+                    
 
             </div>
         );

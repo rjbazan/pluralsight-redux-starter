@@ -1,38 +1,34 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as courseActions from '../../actions/courseActions';
+import * as calendarActions from '../../actions/calendarActions';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
-const items = [];
-for (let i = 0; i < 100; i++ ) {
-  items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`} />);
-}
 
 export class CalendarPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            countries:  ['USA', 'Belgium', 'Spain', 'New Zeland', 'Australia'],
-            value: 10
+            countries:  [' ','USA', 'Belgium', 'Spain', 'New Zeland', 'Australia'],
+            selectedCountry: ''
         };
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
-    handleChange(event, index, value) {
-        this.setState({value});
+    handleSelectChange(event, index, selectedCountry) {
+        this.setState({selectedCountry});
+        this.props.dispatch(calendarActions.selectCountry(selectedCountry));
     }
 
     populateCountries(country, index) {
-        return <MenuItem value={country} key={index} primaryText={`${country}`} />
+        return <MenuItem value={country} key={index} primaryText={country} />
     }
 
     render() {
         return (
             <div>
-                <SelectField value={this.state.value} onChange={this.handleChange} maxHeight={200}>
+                <SelectField value={this.state.selectedCountry} onChange={this.handleSelectChange} maxHeight={200}>
                     {this.state.countries.map(this.populateCountries)}
                 </SelectField>
             </div>
@@ -40,4 +36,10 @@ export class CalendarPage extends React.Component {
     }
 }
 
-export default CalendarPage;
+function mapStateToProps(state, ownProps) {
+    return {
+        calendar: state.selectedCountry
+    };
+}
+
+export default connect(mapStateToProps)(CalendarPage);
