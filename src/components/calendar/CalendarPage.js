@@ -5,40 +5,41 @@ import * as calendarActions from '../../actions/calendarActions';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
+import ViewCountries from './ViewCountries';
+import CountryInfo from './CountryInfo';
+
 export class CalendarPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.state = {
-            countries:  [' ','USA', 'Belgium', 'Spain', 'New Zeland', 'Australia'],
-            selectedCountry: ''
-        };
         this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
-    handleSelectChange(event, index, selectedCountry) {
-        this.setState({selectedCountry});
-        this.props.dispatch(calendarActions.selectCountry(selectedCountry));
+    handleSelectChange(event, index, selectedCompany) {
+        this.props.dispatch(calendarActions.selectCompany(this.props.calendar.companies[index]));
     }
 
-    populateCountries(country, index) {
-        return <MenuItem value={country} key={index} primaryText={country} />
+    populateCompanies(company, index) {
+            return <MenuItem value={company.name} key={index} primaryText={company.name} />
     }
 
     render() {
         return (
             <div>
-                <SelectField value={this.state.selectedCountry} onChange={this.handleSelectChange} maxHeight={200}>
-                    {this.state.countries.map(this.populateCountries)}
+                <SelectField value={this.props.calendar.selectedCompany.name} onChange={this.handleSelectChange} maxHeight={200}>
+                    {this.props.calendar.companies.map(this.populateCompanies)}
                 </SelectField>
+                <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries}/>
+                <CountryInfo selectedCountry="" selectedCompany=""/>
             </div>
         );
     }
 }
 
 function mapStateToProps(state, ownProps) {
+    console.log(state)
     return {
-        calendar: state.selectedCountry
+        calendar: state.calendar
     };
 }
 

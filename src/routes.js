@@ -8,6 +8,7 @@ import FilingAudits from './components/filingAudits/FilingAudits';
 export default (
     <Route path="/" >
         <IndexRoute component={HomePage}/>
-        <Route component={FilingAudits} path="calendar"/>
+        <Route component={FilingAudits} path="filings"/>
+        <Route component={CalendarPage} path="calendar"/>
     </Route>
 );

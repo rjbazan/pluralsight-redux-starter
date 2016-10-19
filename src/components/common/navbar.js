@@ -21,6 +21,7 @@ class Navbar extends React.Component{
               <li className="active"><Link to="/">Home</Link></li>
               <li><Link to="forms">Forms</Link></li>
               <li><Link to="calendar">Calendar</Link></li>
+              <li><Link to="filings">Filings</Link></li>
               <li><Link to="about">About</Link></li>
             </ul>
           </div>
