@@ -13,6 +13,7 @@ export class CalendarPage extends React.Component {
         super(props, context);
 
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.setSelectedCountry = this.setSelectedCountry.bind(this);
     }
 
     handleSelectChange(event, index, selectedCompany) {
@@ -20,16 +21,20 @@ export class CalendarPage extends React.Component {
     }
 
     populateCompanies(company, index) {
-            return <MenuItem value={company.name} key={index} primaryText={company.name} />
+        return <MenuItem value={company.name} key={index} primaryText={company.name} />
+    }
+
+    setSelectedCountry(index) {
+        this.props.dispatch(calendarActions.selectCountry(this.props.calendar.selectedCompany.countries[index]))
     }
 
     render() {
         return (
             <div>
                 <SelectField value={this.props.calendar.selectedCompany.name} onChange={this.handleSelectChange} maxHeight={200}>
-                    {this.props.calendar.companies.map(this.populateCompanies)}
+                    {this.props.calendar.companies.map(this.populateCompanies) }
                 </SelectField>
-                <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries}/>
+                <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry}/>
                 <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns}/>
             </div>
         );
@@ -37,7 +42,6 @@ export class CalendarPage extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    console.log(state)
     return {
         calendar: state.calendar
     };

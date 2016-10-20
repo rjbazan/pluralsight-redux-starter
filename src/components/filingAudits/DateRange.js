@@ -22,7 +22,7 @@ class DateRange extends React.Component {
                 <DatePicker
                     hintText="From"
                     onChange={this.props.onFromDateChanged}
-                    defaultDate={this.props.defaultDate}
+                    defaultDate={this.props.defaultDateFrom}
                     formatDate={this.props.dateFormat}
                     textFieldStyle={text}
                     style={styles2}/>
@@ -30,6 +30,7 @@ class DateRange extends React.Component {
                     hintText="To"
                     onChange={this.props.onToDateChanged}
                     formatDate={this.props.dateFormat}
+                    defaultDate={this.props.defaultDateTo}
                     textFieldStyle={text}
                     style={{display: 'inline-block', marginLeft: '20px'}}/>
             </div>

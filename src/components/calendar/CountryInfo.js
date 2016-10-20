@@ -11,25 +11,25 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ReturnInfo from './CountryInfoRow';
 import * as calendarActions from '../../actions/calendarActions';
 
-const tableCol = {
-    width: '200px',
-    display: 'inline-block'
-}
-
 export class CountryInfo extends React.Component {
     constructor(props, context) {
         super(props, context);
 
         this.createReturnRow = this.createReturnRow.bind(this)
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.getKey = this.getKey.bind(this);
+        this.eFileCheckHandler = this.eFileCheckHandler.bind(this);
+        this.vatGroupCheckHandler = this.vatGroupCheckHandler.bind(this);
+        this.onFromDateChanged = this.onFromDateChanged.bind(this);
+        this.onToDateChanged = this.onToDateChanged.bind(this);
     }
 
-    onFromDateChanged() {
-        console.log('test')
+    onFromDateChanged(ev, date) {
+        this.props.dispatch(calendarActions.changeFromDate(date, this.rowNumber));
     }
 
-    onToDateChanged() {
-
+    onToDateChanged(ev, date) {
+        this.props.dispatch(calendarActions.changeToDate(date, this.rowNumber));
     }
 
     dateFormat(date) {
@@ -37,11 +37,32 @@ export class CountryInfo extends React.Component {
     }
 
     handleSelectChange(event, index, value) {
-        this.props.dispatch(calendarActions.selectFrequency(value, index));
+        this.props.dispatch(calendarActions.selectFrequency(value, index, this.rowNumber));
+    }
+
+    vatGroupCheckHandler(event, isInputChecked) {
+        this.props.dispatch(calendarActions.checkVatGroup(isInputChecked, this.rowNumber));
+    }
+
+    eFileCheckHandler(event, isInputChecked) {
+        this.props.dispatch(calendarActions.checkEfile(isInputChecked, this.rowNumber));
     }
 
     createReturnRow(item, index) {
-        return <ReturnInfo key={index} return={item} selectionHandler={this.handleSelectChange} dateFormat={this.dateFormat} onFromDateChanged={this.onFromDateChanged} onToDateChanged={this.onToDateChanged} />
+        return (<ReturnInfo key={index}
+            return={item}
+            selectionHandler={this.handleSelectChange}
+            dateFormat={this.dateFormat}
+            onFromDateChanged={this.onFromDateChanged}
+            onToDateChanged={this.onToDateChanged}
+            getKey={this.getKey}
+            eFileCheckHandler={this.eFileCheckHandler}
+            vatGroupCheckHandler={this.vatGroupCheckHandler}/>
+        );
+    }
+
+    getKey(rowKey) {
+        this.rowNumber = rowKey;
     }
 
     render() {
@@ -55,7 +76,7 @@ export class CountryInfo extends React.Component {
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                    {this.props.returns.map(this.createReturnRow)}                    
+                    {this.props.returns.map(this.createReturnRow) }
                 </TableBody>
             </Table>
         );

@@ -15,22 +15,17 @@ export class ViewCountries extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.setSelected = this.setSelected;
         this.populateCountries = this.populateCountries.bind(this);
     }
 
     populateCountries(company, index) {
         return (
-            <li key={index} onClick={this.setSelected.bind(this, index)}>
+            <li key={index} onClick={this.props.setSelected.bind(this, index)}>
                 <div style={box}>
                     <span>{company}</span>
                 </div>
             </li>
         );
-    }
-
-    setSelected(index) {
-        this.props.dispatch(calendarActions.selectCountry(this.props.selectedCompanyCountries[index]))
     }
 
     render() {
@@ -45,10 +40,4 @@ export class ViewCountries extends React.Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    return {
-        calendar: state.calendar
-    };
-}
-
-export default connect(mapStateToProps)(ViewCountries);
+export default ViewCountries;

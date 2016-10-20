@@ -33,7 +33,7 @@ class FilingAudits extends React.Component {
             <div>
                 <DateRange
                     dateFormat={this.dateFormat}
-                    defaultDate={today}
+                    defaultDateFrom={today}
                     onFromDateChanged={this.onFromDateChanged}
                     onToDateChanged={this.onToDateChanged}/>
                 <FilingTable audits={this.props.filings.FilteredFilingAudits}/>
