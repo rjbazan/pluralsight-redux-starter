@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import DateRange from '../filingAudits/DateRange';
 import SelectField from 'material-ui/SelectField';
@@ -6,23 +8,11 @@ import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const CalendarTableRow = (audit, index) => {
-    return (
-        <TableRow key={index}>
-            <TableRowColumn>{audit.CountryCode}</TableRowColumn>
-            <TableRowColumn>{audit.CompanyName}</TableRowColumn>
-            <TableRowColumn>test</TableRowColumn>
-            <TableRowColumn>{audit.ReportingPeriod}</TableRowColumn>
-            <TableRowColumn>{audit.TransmissionDetails.FormattedTransmissionDate}</TableRowColumn>
-            <TableRowColumn>{audit.TrackingNumber}</TableRowColumn>
-            <TableRowColumn>{audit.UserFullName}</TableRowColumn>
-            <TableRowColumn>{audit.Errors}</TableRowColumn>
-        </TableRow>
-    );
-};
+import ReturnInfo from './CountryInfoRow';
+import * as calendarActions from '../../actions/calendarActions';
 
 const tableCol = {
-    width: '350px',
+    width: '200px',
     display: 'inline-block'
 }
 
@@ -30,6 +20,8 @@ export class CountryInfo extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        this.createReturnRow = this.createReturnRow.bind(this)
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
     onFromDateChanged() {
@@ -45,7 +37,11 @@ export class CountryInfo extends React.Component {
     }
 
     handleSelectChange(event, index, value) {
-        this.setState({value});
+        this.props.dispatch(calendarActions.selectFrequency(value, index));
+    }
+
+    createReturnRow(item, index) {
+        return <ReturnInfo key={index} return={item} selectionHandler={this.handleSelectChange} dateFormat={this.dateFormat} onFromDateChanged={this.onFromDateChanged} onToDateChanged={this.onToDateChanged} />
     }
 
     render() {
@@ -59,40 +55,17 @@ export class CountryInfo extends React.Component {
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                    <TableRow>
-                        <TableRowColumn>
-                         <div style={tableCol}>Annual VAT Return</div>
-                         <div style={tableCol}>
-                            <a href="javascript:void(0)">See sample</a>
-                         </div>
-                        </TableRowColumn>
-                        <TableRowColumn>Frequency (required)
-                        <SelectField onChange={this.handleSelectChange} maxHeight={200} style={{marginLeft: '20px'}}>
-                            <MenuItem value="Monthly" primaryText="Monthly" />
-                            <MenuItem value="Quarterly" primaryText="Quarterly" />
-                            <MenuItem value="Anually" primaryText="Anually" />
-                        </SelectField>             
-                            <DateRange
-                                label="Effective dates"
-                                dateFormat={this.dateFormat}
-                                onFromDateChanged={this.onFromDateChanged}
-                                onToDateChanged={this.onToDateChanged}/>
-                        </TableRowColumn>
-                        <TableRowColumn>
-                        <div style={tableCol}>
-                            <Checkbox label="E-file this return?"/>
-                        </div>
-                         <div style={tableCol}>
-                            <Checkbox label="Part of VAT group?"/>
-                            <RaisedButton children={<span>Complete filing details</span>} style={{width: '150'}} />
-                         </div>
-                        </TableRowColumn>
-                    </TableRow>
-                    
+                    {this.props.returns.map(this.createReturnRow)}                    
                 </TableBody>
             </Table>
         );
     }
 }
 
-export default CountryInfo;
+function mapStateToProps(state, ownProps) {
+    return {
+        calendar: state.calendar
+    };
+}
+
+export default connect(mapStateToProps)(CountryInfo);

@@ -30,7 +30,7 @@ export class CalendarPage extends React.Component {
                     {this.props.calendar.companies.map(this.populateCompanies)}
                 </SelectField>
                 <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries}/>
-                <CountryInfo selectedCountry="" selectedCompany=""/>
+                <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns}/>
             </div>
         );
     }
