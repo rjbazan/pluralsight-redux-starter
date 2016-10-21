@@ -80,8 +80,8 @@ export class CountryInfo extends React.Component {
                     {this.props.loading ? 
                         <div style={{position: 'absolute', left: '40%', top:'40%'}}>
                             <RefreshIndicator size={60} left={70} top={0} loadingColor="rgb(0, 188, 212)" status="loading"/>
-                        </div> : 
-                    this.props.returns.map(this.createReturnRow) }
+                        </div> : this.props.returns.length ? 
+                    this.props.returns.map(this.createReturnRow) : <span>No records available.</span> }
                 </TableBody>
             </Table>
         );
