@@ -11,6 +11,38 @@ const box = {
     color: 'white'
 }
 
+const countryBox = {
+    paddingLeft: '5px',
+    width: '115px',
+    height: '29px',
+    backgroundColor: '#EFEFEF',
+    border: '1px solid #FFF',
+    boxShadow: 'none',
+    textShadow: 'none',
+    cursor: 'pointer',
+    lineHeight: '19px',
+    fontSize: '10.0pt',
+    display: 'table-cell',
+    verticalAlign: 'middle',
+    countryName: {
+        color: '#434343',
+        textAlign: 'left',
+        textDecoration: 'none',
+        fontSize: '10.0pt',
+        lineHeight: '0px',
+    }
+}
+
+const normalizeUl = {
+    listStyle: 'none',
+    paddingLeft: '5px'
+}
+
+const selected = {
+     backgroundColor: '#434343',
+     backgroundImage: 'none'
+}
+
 export class ViewCountries extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -21,8 +53,8 @@ export class ViewCountries extends React.Component {
     populateCountries(company, index) {
         return (
             <li key={index} onClick={this.props.setSelected.bind(this, index)}>
-                <div style={box}>
-                    <span>{company}</span>
+                <div style={countryBox} className={`${this.props.selectedCountry == index ? 'selected' : ''}`}>
+                    <span style={countryBox.countryName} className={`${this.props.selectedCountry == index ? 'country-name' : ''}`}>{company}</span>
                 </div>
             </li>
         );
@@ -30,9 +62,8 @@ export class ViewCountries extends React.Component {
 
     render() {
         return (
-            <div>
-                <h4>Administration Setup</h4>
-                <ul>
+            <div className="col-md-1">
+                <ul style={normalizeUl}>
                     {this.props.selectedCompanyCountries.map(this.populateCountries)}
                 </ul>
             </div>

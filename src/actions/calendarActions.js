@@ -10,6 +10,18 @@ export const selectCountry = (country) => {
     return {type: 'SELECT_COUNTRY', country}
 }
 
+export const openModal = (flag) => {
+    return {type: 'OPEN_MODAL', flag}
+}
+
+export const closeModal = (flag) => {
+    return {type: 'CLOSE_MODAL', flag}
+}
+
+export const addReturn = (returnObject) => {
+    return {type: 'ADD_RETURN', returnObject}
+}
+
 export const selectFrequency = (frequency, index, rowNumber) => {
     return {type: 'SELECT_FREQUENCY', frequency, index, rowNumber}
 }
@@ -38,8 +50,8 @@ export const loadReturnsSuccess = (returns) => {
     return {type: 'LOAD_RETURNS_SUCCESS', returns}
 }
 
-export const loadReturns = () => {
-    return {type: 'LOAD_RETURNS'}
+export const loadReturns = (index) => {
+    return {type: 'LOAD_RETURNS', index}
 }
 
 export const loadCompanies = (companies) => {

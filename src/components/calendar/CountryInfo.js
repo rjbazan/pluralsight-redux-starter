@@ -16,7 +16,7 @@ export class CountryInfo extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.createReturnRow = this.createReturnRow.bind(this)
+        this.createReturnRow = this.createReturnRow.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.getKey = this.getKey.bind(this);
         this.eFileCheckHandler = this.eFileCheckHandler.bind(this);
@@ -68,22 +68,25 @@ export class CountryInfo extends React.Component {
 
     render() {
         return (
-            <Table selectable={false}>
-                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                    <TableRow>
-                        <TableHeaderColumn>Return Name</TableHeaderColumn>
-                        <TableHeaderColumn>Filing Frequency</TableHeaderColumn>
-                        <TableHeaderColumn>E-filing</TableHeaderColumn>
-                    </TableRow>
-                </TableHeader>
-                <TableBody displayRowCheckbox={false}>
-                    {this.props.loading ? 
-                        <div style={{position: 'absolute', left: '40%', top:'40%'}}>
-                            <RefreshIndicator size={60} left={70} top={0} loadingColor="rgb(0, 188, 212)" status="loading"/>
-                        </div> : this.props.returns.length ? 
-                    this.props.returns.map(this.createReturnRow) : <span>No records available.</span> }
-                </TableBody>
-            </Table>
+            <div className="col-md-11">
+                <Table selectable={false}>
+                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                        <TableRow>
+                            <TableHeaderColumn>Return Name</TableHeaderColumn>
+                            <TableHeaderColumn>Filing Frequency</TableHeaderColumn>
+                            <TableHeaderColumn>E-filing</TableHeaderColumn>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody displayRowCheckbox={false}>
+                        {this.props.loading ? 
+                            <TableRow><TableRowColumn><div style={{position: 'absolute', left: '40%', bottom:'30%'}}>
+                                <RefreshIndicator size={40} left={70} top={0} loadingColor="rgb(0, 188, 212)" status="loading"/>
+                            </div></TableRowColumn></TableRow>
+                            : this.props.returns.length ? 
+                        this.props.returns.map(this.createReturnRow) : <TableRow><TableRowColumn><span>No records available.</span></TableRowColumn></TableRow> }
+                    </TableBody>
+                </Table>
+            </div>
         );
     }
 }

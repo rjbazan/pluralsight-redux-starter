@@ -9,6 +9,7 @@ import routes from './routes';
 import {loadCompanies} from './actions/calendarActions';
 import configureStore from './store/configureStore';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './main.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -23,4 +24,4 @@ render(
     document.getElementById('app')
 );
 
-store.subscribe()
+store.subscribe();

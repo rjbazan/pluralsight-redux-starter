@@ -46,7 +46,7 @@ export class ReturnInfo extends React.Component {
                     </div>
                     <div style={tableCol}>
                         <Checkbox label="Part of VAT group?" checked={this.props.return.partOfVatGroup} onCheck={this.props.vatGroupCheckHandler}/>
-                        <RaisedButton children={<span style={{ padding: '5px' }}>Complete filing details</span>} />
+                        <RaisedButton children={<span style={{ padding: '5px 10px' }}>Complete filing details</span>} />
                     </div>
                 </TableRowColumn>
             </TableRow>
