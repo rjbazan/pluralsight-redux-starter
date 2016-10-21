@@ -23,7 +23,7 @@ export class ReturnInfo extends React.Component {
                 <TableRowColumn>
                     <div style={tableCol}>{this.props.return.type}</div>
                     <div style={tableCol}>
-                        <a href="javascript:void(0)">{this.props.return.link}</a>
+                        <a href="javascript:void(0)">Sample Link</a>
                     </div>
                 </TableRowColumn>
                 <TableRowColumn>Frequency (required)

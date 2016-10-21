@@ -7,6 +7,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 import ReturnInfo from './CountryInfoRow';
 import * as calendarActions from '../../actions/calendarActions';
@@ -76,7 +77,11 @@ export class CountryInfo extends React.Component {
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                    {this.props.returns.map(this.createReturnRow) }
+                    {this.props.loading ? 
+                        <div style={{position: 'absolute', left: '40%', top:'40%'}}>
+                            <RefreshIndicator size={60} left={70} top={0} loadingColor="rgb(0, 188, 212)" status="loading"/>
+                        </div> : 
+                    this.props.returns.map(this.createReturnRow) }
                 </TableBody>
             </Table>
         );

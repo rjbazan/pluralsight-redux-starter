@@ -25,7 +25,9 @@ export class CalendarPage extends React.Component {
     }
 
     setSelectedCountry(index) {
-        this.props.dispatch(calendarActions.selectCountry(this.props.calendar.selectedCompany.countries[index]))
+        this.props.dispatch(calendarActions.loadReturns())
+        this.props.dispatch(calendarActions.loadCountryReturns(this.props.calendar.selectedCompany.countries[index]))
+        //this.props.dispatch(calendarActions.selectCountry(this.props.calendar.selectedCompany.countries[index]))
     }
 
     render() {
@@ -35,7 +37,7 @@ export class CalendarPage extends React.Component {
                     {this.props.calendar.companies.map(this.populateCompanies) }
                 </SelectField>
                 <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry}/>
-                <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns}/>
+                <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns} loading={this.props.calendar.isLoading}/>
             </div>
         );
     }

@@ -1,8 +1,17 @@
 export default function calendarReducer(state = initialState, action) {
 
     switch (action.type) {
+        case 'LOAD_COMPANIES_SUCCESS':
+            return Object.assign({}, state, { companies: action.companies, selectedCompany: action.companies[0] });
+
+        case 'LOAD_RETURNS':
+            return  Object.assign({}, state, { isLoading: true });  
+
+        case 'LOAD_RETURNS_SUCCESS':
+            return Object.assign({}, state, { returns: action.returns, isLoading: false });
+
         case 'SELECT_COMPANY':
-            return Object.assign({}, state, { selectedCompany: action.company });
+            return Object.assign({}, state, { selectedCompany: action.company, returns: []});
 
         case 'SELECT_COUNTRY':
 
@@ -69,78 +78,8 @@ export default function calendarReducer(state = initialState, action) {
 }
 
 const initialState = {
-    companies:  [
-        {name: 'Microsoft', countries: ['USA', 'Belgium', 'Spain', 'New Zeland', 'Australia'], info: 'Microsoft company'},
-        {name: 'Google', countries: ['USA', 'Argentina', 'Portugal'], info: 'testing company'},
-        {name: 'Yahoo', countries: ['Canada', 'Germany', 'Brazil'], info: 'some company'},
-        {name: 'HomeDepot', countries: ['USA', 'Belgium', 'Spain'], info: 'info company'},
-        {name: 'Disco', countries: ['USA', 'Argentina', 'Portugal', 'Belgium'], info: 'testing company'}
-    ],
-    selectedCompany: {name: 'Disco', countries: ['USA', 'Argentina', 'Portugal', 'Belgium'], info: 'testing company'},
-    filteredReturns: [{
-        type: 'Annual VAT Return',
-        link: 'http://google.com.ar',
-        frequency: 'Annually',
-        dateFrom: new Date('02/02/2010'),
-        dateTo: new Date('02/02/2015'),
-        eFile: true,
-        partOfVatGroup: false,
-        country: 'Belgium',
-        company: 'HomeDepot'
-    },
-    {
-        type: 'IntraStatal',
-        link: 'http://google.com.ar',
-        frequency: 'Annually',
-        dateFrom: new Date('02/02/2010'),
-        dateTo: new Date('02/02/2015'),
-        eFile: true,
-        partOfVatGroup: true,
-        country: 'Portugal',
-        company: 'Disco'
-    },
-    {
-        type: 'Rodrigo',
-        link: 'http://lagaceta.com.ar',
-        frequency: 'Monthly',
-        dateFrom: new Date('02/07/2010'),
-        dateTo: new Date('02/07/2015'),
-        eFile: false,
-        partOfVatGroup: false,
-        country: 'Portugal',
-        company: 'Disco'
-    }],
-    returns: [{
-        type: 'Annual VAT Return',
-        link: 'http://google.com.ar',
-        frequency: 'Annually',
-        dateFrom: new Date('02/02/2010'),
-        dateTo: new Date('02/02/2015'),
-        eFile: true,
-        country: 'Belgium',
-        company: 'Disco',
-        partOfVatGroup: false
-    },
-    {
-        type: 'IntraStatal',
-        link: 'http://google.com.ar',
-        frequency: 'Annually',
-        dateFrom: new Date('02/02/2010'),
-        dateTo: new Date('02/02/2015'),
-        eFile: true,
-        partOfVatGroup: true,
-        country: 'Portugal',
-        company: 'Disco'
-    },
-    {
-        type: 'Rodrigo',
-        link: 'http://lagaceta.com.ar',
-        frequency: 'Monthly',
-        dateFrom: new Date('02/07/2010'),
-        dateTo: new Date('02/07/2015'),
-        eFile: false,
-        partOfVatGroup: false,
-        country: 'Portugal',
-        company: 'Disco'
-    }]
+    companies:  [],
+    selectedCompany: {name: '', countries: [], info: 'testing company'},
+    returns: [],
+    isLoading: false
 }
