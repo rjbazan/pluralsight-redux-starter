@@ -5,9 +5,10 @@ export default function calendarReducer(state = initialState, action) {
             return Object.assign({}, state, { companies: action.companies, selectedCompany: action.companies[0] });
 
         case 'LOAD_RETURNS':
-            return  Object.assign({}, state, { isLoading: true, selectedCountry: action.index});  
+            return  Object.assign({}, state, { isLoading: true, selectedCountry: action.index, countryName: action.country});  
 
         case 'LOAD_RETURNS_SUCCESS':
+        console.log(action)
             return Object.assign({}, state, { returns: action.returns, isLoading: false });
 
         case 'SELECT_COMPANY':

@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as calendarActions from '../../actions/calendarActions';
+import * as modalActions from '../../actions/modalActions';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -18,9 +19,11 @@ export class CalendarPage extends React.Component {
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFrequency = this.handleFrequency.bind(this);
+        this.handleReturnType = this.handleReturnType.bind(this);
     }
 
-    handleSelectChange(event, index, selectedCompany) {
+    handleSelectChange(event, index) {
         this.props.dispatch(calendarActions.selectCompany(this.props.calendar.companies[index]));
     }
 
@@ -29,7 +32,7 @@ export class CalendarPage extends React.Component {
     }
 
     setSelectedCountry(index) {
-        this.props.dispatch(calendarActions.loadReturns(index));
+        this.props.dispatch(calendarActions.loadReturns(index, this.props.calendar.selectedCompany.countries[index]));
         this.props.dispatch(calendarActions.loadCountryReturns(this.props.calendar.selectedCompany.countries[index]));
         //this.props.dispatch(calendarActions.selectCountry(this.props.calendar.selectedCompany.countries[index]))''
     }
@@ -43,7 +46,15 @@ export class CalendarPage extends React.Component {
     }
 
     handleSubmit(newReturn) {
-        this.props.dispatch(calendarActions.addReturn(newReturn));
+        this.props.dispatch(modalActions.addReturn(newReturn));
+    }
+    
+    handleFrequency(event, index, value) {
+        this.props.dispatch(modalActions.selectFrequency(value));
+    }
+
+    handleReturnType(event, index, value) {
+        this.props.dispatch(modalActions.selectReturnType(value));
     }
 
     render() {
@@ -57,16 +68,27 @@ export class CalendarPage extends React.Component {
                 </div>
                 <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry} selectedCountry={this.props.calendar.selectedCountry}/>
                 <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns} loading={this.props.calendar.isLoading}/>
-                <AddReturnModal handleOpen={this.handleOpen} handleClose={this.handleClose} open={this.props.calendar.isModalOpen} handleSubmit={this.handleSubmit} btnLabel="Add Return" dialogTitle="Add Return"/>
-
+                <AddReturnModal 
+                    handleOpen={this.handleOpen} 
+                    handleClose={this.handleClose} 
+                    open={this.props.calendar.isModalOpen} 
+                    handleSubmit={this.handleSubmit} 
+                    country={this.props.calendar.countryName}
+                    handleReturnType={this.handleReturnType}
+                    handleFrequency={this.handleFrequency}
+                    selectedFrequency={this.props.modal.frequency}
+                    selectedReturnType={this.props.modal.returnType}/>
+                    
             </div>
         );
     }
 }
 
 function mapStateToProps(state, ownProps) {
+    console.log(state)
     return {
-        calendar: state.calendar
+        calendar: state.calendar,
+        modal: state.modal
     };
 }
 

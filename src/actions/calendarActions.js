@@ -1,8 +1,7 @@
 import CalendarApi from '../api/mockCalendarApi';
 
 
-export const selectCompany = (company) => 
-{
+export const selectCompany = (company) => {
     return {type: 'SELECT_COMPANY', company};
 }
 
@@ -50,8 +49,8 @@ export const loadReturnsSuccess = (returns) => {
     return {type: 'LOAD_RETURNS_SUCCESS', returns}
 }
 
-export const loadReturns = (index) => {
-    return {type: 'LOAD_RETURNS', index}
+export const loadReturns = (index, country) => {
+    return {type: 'LOAD_RETURNS', index, country}
 }
 
 export const loadCompanies = (companies) => {
