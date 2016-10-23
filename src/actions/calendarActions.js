@@ -21,6 +21,10 @@ export const addReturn = (returnObject) => {
     return {type: 'ADD_RETURN', returnObject}
 }
 
+export const removeReturn = () => {
+    return {type: 'REMOVE_RETURN'}
+}
+
 export const selectFrequency = (frequency, index, rowNumber) => {
     return {type: 'SELECT_FREQUENCY', frequency, index, rowNumber}
 }

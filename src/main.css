@@ -12,3 +12,6 @@ body {
 label {
     font-weight: normal; /*clear bootstrap*/
 }
+#li:hover:not(.selected) {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}

@@ -31,8 +31,8 @@ class ReturnInfo extends React.Component {
                         <a href="javascript:void(0)">Sample Link</a>
                     </div>
                 </TableRowColumn>
-                <TableRowColumn>Frequency (required)
-                    <SelectField value={this.props.return.frequency} onChange={this.props.selectionHandler} maxHeight={200} style={styles.selectField}>
+                <TableRowColumn>Frequency
+                    <SelectField value={this.props.return.frequency} onChange={this.props.onFrequencyChange} maxHeight={200} style={styles.selectField}>
                         <MenuItem value="Monthly" primaryText="Monthly" />
                         <MenuItem value="Quarterly" primaryText="Quarterly" />
                         <MenuItem value="Annually" primaryText="Anually" />
@@ -47,10 +47,10 @@ class ReturnInfo extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                     <div style={styles.tableCol}>
-                        <Checkbox label="E-file this return?" checked={this.props.return.eFile} onCheck={this.props.eFileCheckHandler}/>
+                        <Checkbox label="E-file this return?" checked={this.props.return.eFile} onCheck={this.props.onEfileChecked}/>
                     </div>
                     <div style={styles.tableCol}>
-                        <Checkbox label="Part of VAT group?" checked={this.props.return.partOfVatGroup} onCheck={this.props.vatGroupCheckHandler}/>
+                        <Checkbox label="Part of VAT group?" checked={this.props.return.partOfVatGroup} onCheck={this.props.onVatGroupChecked}/>
                         <RaisedButton children={<span style={styles.completeBtn}>Complete filing details</span>} />
                     </div>
                 </TableRowColumn>

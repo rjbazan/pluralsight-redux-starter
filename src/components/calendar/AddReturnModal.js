@@ -13,16 +13,16 @@ import {
 } from 'redux-form-material-ui';
 
 const validate = values => {
-  const errors = {}
-  const requiredFields = [ 'frequency', 'startDate', 'returnType']
+  const errors = {};
+  const requiredFields = [ 'frequency', 'startDate', 'returnType'];
   requiredFields.forEach(field => {
     if (!values[ field ]) {
-      errors[ field ] = 'Required'
+      errors[ field ] = 'Required';
     }
   });
 
-  return errors
-}
+  return errors;
+};
 
 
 /**
@@ -32,33 +32,37 @@ class AddReturnModal extends React.Component {
 
   render() {
     const styles = {
-      inline: {display: 'inline-block', width: '50%', verticalAlign: 'bottom'},
-      block: {display: 'block'},
-      label: {fontSize: '14px'}
-    }
+      inline: { display: 'inline-block', width: '50%', verticalAlign: 'bottom' },
+      block: { display: 'block' },
+      label: { fontSize: '14px' },
+      addReturnBtn: { margin: '20px' }
+    };
     const actions = [
       <FlatButton
         label="Cancel"
+        key="0"
         primary={false}
-        onTouchTap={this.props.handleClose}
+        onTouchTap={this.props.onClose}
       />,
       <FlatButton
         label="OK"
-        primary={true}
-        keyboardFocused={true}
+        key="1"
+        primary
+        keyboardFocused
         onTouchTap={this.props.handleSubmit}
       />
     ];
 
     return (
       <div>
-        <RaisedButton label="Add Return" onTouchTap={this.props.handleOpen} />
+        <RaisedButton label="Add Return" onTouchTap={this.props.onOpen} />
+        <RaisedButton label="Remove Return" onTouchTap={this.props.onRemove} style={styles.addReturnBtn}/>
         <Dialog
           title="Add Return"
           actions={actions}
-          modal={true}
+          modal
           open={this.props.open}
-          onRequestClose={this.props.handleClose}
+          onRequestClose={this.props.onClose}
         >
           <p>You are about to add a return to the Filing Calendar for {this.props.country}. 
           Please select the report from the below list and specify the period for which you want to sign up for the particular return.</p>

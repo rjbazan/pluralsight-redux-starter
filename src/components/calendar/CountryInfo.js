@@ -1,14 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import DateRange from '../filingAudits/DateRange';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import Checkbox from 'material-ui/Checkbox';
-import RaisedButton from 'material-ui/RaisedButton';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-
 import ReturnInfo from './CountryInfoRow';
 import * as calendarActions from '../../actions/calendarActions';
 
@@ -52,13 +45,13 @@ export class CountryInfo extends React.Component {
     createReturnRow(item, index) {
         return (<ReturnInfo key={index}
             return={item}
-            selectionHandler={this.handleSelectChange}
+            onFrequencyChange={this.handleSelectChange}
             dateFormat={this.dateFormat}
             onFromDateChanged={this.onFromDateChanged}
             onToDateChanged={this.onToDateChanged}
             getKey={this.getKey}
-            eFileCheckHandler={this.eFileCheckHandler}
-            vatGroupCheckHandler={this.vatGroupCheckHandler}/>
+            onEfileChecked={this.eFileCheckHandler}
+            onVatGroupChecked={this.vatGroupCheckHandler}/>
         );
     }
 
@@ -71,7 +64,7 @@ export class CountryInfo extends React.Component {
             spinner: {
                 position: 'absolute',
                 left: '40%',
-                bottom: '30%'
+                top: '50%'
             }
         }
 

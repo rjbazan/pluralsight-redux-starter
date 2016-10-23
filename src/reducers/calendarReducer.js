@@ -8,7 +8,6 @@ export default function calendarReducer(state = initialState, action) {
             return  Object.assign({}, state, { isLoading: true, selectedCountry: action.index, countryName: action.country});  
 
         case 'LOAD_RETURNS_SUCCESS':
-        console.log(action)
             return Object.assign({}, state, { returns: action.returns, isLoading: false });
 
         case 'SELECT_COMPANY':
@@ -79,7 +78,12 @@ export default function calendarReducer(state = initialState, action) {
         case 'ADD_RETURN':
             return Object.assign({}, state, {
                 isModalOpen: false, returns: [...state.returns, Object.assign({}, action.form)]
-            });           
+            });
+
+        case 'REMOVE_RETURN':
+            return Object.assign({}, state, {
+                returns: [...state.returns.slice(0, state.returns.length - 1), ...state.returns.slice(state.returns.length)]
+            });              
 
         default:
             return state

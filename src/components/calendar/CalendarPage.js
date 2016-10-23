@@ -21,6 +21,7 @@ export class CalendarPage extends React.Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.disableEndDateHandler = this.disableEndDateHandler.bind(this);
+        this.handleRemoval = this.handleRemoval.bind(this);
     }
 
     handleSelectChange(event, index) {
@@ -54,6 +55,10 @@ export class CalendarPage extends React.Component {
         this.props.dispatch(modalActions.disableEndDate(value));
     }
 
+    handleRemoval() {
+        this.props.dispatch(calendarActions.removeReturn());
+    }
+
     render() {
         const styles = {
             selectLabel: {
@@ -78,13 +83,15 @@ export class CalendarPage extends React.Component {
                 <div className="col-md-11">
                     <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns} loading={this.props.calendar.isLoading} />
                     <AddReturnModal
-                        handleOpen={this.handleOpen}
-                        handleClose={this.handleClose}
+                        onOpen={this.handleOpen}
+                        onClose={this.handleClose}
                         open={this.props.calendar.isModalOpen}
                         onSubmit={this.handleSubmit}
                         country={this.props.calendar.countryName}
                         disableEndDateHandler={this.disableEndDateHandler}
-                        endDateDisabled={this.props.modal.endDateDisabled} />
+                        endDateDisabled={this.props.modal.endDateDisabled}
+                        onRemove={this.handleRemoval} />
+                        
                 </div>
 
             </div>
