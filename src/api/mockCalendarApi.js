@@ -118,33 +118,33 @@ export default CalendarApi;
 
 
 const returns = [{
-        type: 'Annual VAT Return',
+        returnType: 'Annual VAT Return',
         link: 'http://google.com.ar',
         frequency: 'Annually',
-        dateFrom: new Date('02/02/2010'),
-        dateTo: new Date('02/02/2015'),
+        startDate: new Date('02/02/2010'),
+        endDate: new Date('02/02/2015'),
         eFile: true,
         country: 'Belgium',
         company: 'Disco',
         partOfVatGroup: false
     },
     {
-        type: 'IntraStatal',
+        returnType: 'IntraStatal',
         link: 'http://google.com.ar',
         frequency: 'Annually',
-        dateFrom: new Date('02/02/2010'),
-        dateTo: new Date('02/02/2015'),
+        startDate: new Date('02/02/2010'),
+        endDate: new Date('02/02/2015'),
         eFile: true,
         partOfVatGroup: true,
         country: 'Portugal',
         company: 'Disco'
     },
     {
-        type: 'Rodrigo',
+        returnType: 'Rodrigo',
         link: 'http://lagaceta.com.ar',
         frequency: 'Monthly',
-        dateFrom: new Date('02/07/2010'),
-        dateTo: new Date('02/07/2015'),
+        startDate: new Date('02/07/2010'),
+        endDate: new Date('02/07/2015'),
         eFile: false,
         partOfVatGroup: false,
         country: 'Portugal',

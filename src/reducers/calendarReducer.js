@@ -78,12 +78,7 @@ export default function calendarReducer(state = initialState, action) {
 
         case 'ADD_RETURN':
             return Object.assign({}, state, {
-                isModalOpen: false, returns: [...state.returns, Object.assign({}, {
-                    "type": "VAT Return",
-                    "frequency": "Quarterly",
-                    "start_date": "date string",
-                    "end_date": "date string"
-                })]
+                isModalOpen: false, returns: [...state.returns, Object.assign({}, action.form)]
             });           
 
         default:

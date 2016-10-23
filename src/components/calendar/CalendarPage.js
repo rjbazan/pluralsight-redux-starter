@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {reset} from 'redux-form';
 import * as calendarActions from '../../actions/calendarActions';
 import * as modalActions from '../../actions/modalActions';
 
@@ -19,8 +20,7 @@ export class CalendarPage extends React.Component {
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleFrequency = this.handleFrequency.bind(this);
-        this.handleReturnType = this.handleReturnType.bind(this);
+        this.disableEndDateHandler = this.disableEndDateHandler.bind(this);
     }
 
     handleSelectChange(event, index) {
@@ -47,38 +47,46 @@ export class CalendarPage extends React.Component {
 
     handleSubmit(newReturn) {
         this.props.dispatch(modalActions.addReturn(newReturn));
-    }
-    
-    handleFrequency(event, index, value) {
-        this.props.dispatch(modalActions.selectFrequency(value));
+        this.props.dispatch(reset('AddReturn'));
     }
 
-    handleReturnType(event, index, value) {
-        this.props.dispatch(modalActions.selectReturnType(value));
+    disableEndDateHandler(ev, value) {
+        this.props.dispatch(modalActions.disableEndDate(value));
     }
 
     render() {
+        const styles = {
+            selectLabel: {
+                marginRight: '20px'
+            },
+            selectContainer: {
+                marginBottom: '30px'
+            }
+        }
+
         return (
             <div>
-                <div className="col-md-12" style={{marginBottom: '30px'}}>
-                    <span style={{marginRight: '20px'}}>Select Company</span>
+                <div className="col-md-12" style={styles.selectContainer}>
+                    <span style={styles.selectLabel}>Select Company</span>
                     <SelectField value={this.props.calendar.selectedCompany.name} onChange={this.handleSelectChange} maxHeight={200}>
-                        {this.props.calendar.companies.map(this.populateCompanies) }
+                        {this.props.calendar.companies.map(this.populateCompanies)}
                     </SelectField>
                 </div>
-                <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry} selectedCountry={this.props.calendar.selectedCountry}/>
-                <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns} loading={this.props.calendar.isLoading}/>
-                <AddReturnModal 
-                    handleOpen={this.handleOpen} 
-                    handleClose={this.handleClose} 
-                    open={this.props.calendar.isModalOpen} 
-                    handleSubmit={this.handleSubmit} 
-                    country={this.props.calendar.countryName}
-                    handleReturnType={this.handleReturnType}
-                    handleFrequency={this.handleFrequency}
-                    selectedFrequency={this.props.modal.frequency}
-                    selectedReturnType={this.props.modal.returnType}/>
-                    
+                <div className="col-md-1">
+                    <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry} selectedCountry={this.props.calendar.selectedCountry} />
+                </div>
+                <div className="col-md-11">
+                    <CountryInfo selectedCountry="" selectedCompany="" returns={this.props.calendar.returns} loading={this.props.calendar.isLoading} />
+                    <AddReturnModal
+                        handleOpen={this.handleOpen}
+                        handleClose={this.handleClose}
+                        open={this.props.calendar.isModalOpen}
+                        onSubmit={this.handleSubmit}
+                        country={this.props.calendar.countryName}
+                        disableEndDateHandler={this.disableEndDateHandler}
+                        endDateDisabled={this.props.modal.endDateDisabled} />
+                </div>
+
             </div>
         );
     }

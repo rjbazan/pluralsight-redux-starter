@@ -20,3 +20,7 @@ export const selectEndDate = (date) => {
 export const addReturn = (form) => {
     return {type: 'ADD_RETURN', form};
 }
+
+export const disableEndDate = (value) => {
+    return {type: 'DISABLE_END_DATE', value};
+}

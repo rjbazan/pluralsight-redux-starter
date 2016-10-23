@@ -13,11 +13,23 @@ import './main.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import {lightBlue500, lightBlue300, grey800, orange400} from 'material-ui/styles/colors';
+
+const myTheme = getMuiTheme({
+    palette: {
+        primary1Color: lightBlue300,
+        primary2Color: grey800,
+        accent1Color: orange400,
+        pickerHeaderColor: lightBlue300
+    }
+});
 const store = configureStore();
 store.dispatch(loadCompanies());
 render(
     <Provider store={store}>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={myTheme}>
             <Router history={browserHistory} routes={routes}/>
         </MuiThemeProvider>
     </Provider>,

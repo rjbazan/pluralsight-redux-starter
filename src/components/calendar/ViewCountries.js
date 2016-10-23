@@ -43,7 +43,7 @@ const selected = {
      backgroundImage: 'none'
 }
 
-export class ViewCountries extends React.Component {
+class ViewCountries extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -62,7 +62,7 @@ export class ViewCountries extends React.Component {
 
     render() {
         return (
-            <div className="col-md-1">
+            <div>
                 <ul style={normalizeUl}>
                     {this.props.selectedCompanyCountries.map(this.populateCountries)}
                 </ul>

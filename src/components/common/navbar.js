@@ -1,32 +1,32 @@
 import React from 'react';
-import Router, {Link} from 'react-router';
+import Router, { Link } from 'react-router';
+import AppBar from 'material-ui/AppBar';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
-class Navbar extends React.Component{
+class Navbar extends React.Component {
+  changeTab(value) {
+    this.value = value
+  }
   render() {
+    const styles = {
+      navbar: {
+        flex: 1
+      },
+      title: {
+        flex: 1
+      }
+    };
     return (
-      <nav className="navbar navbar-inverse">
-        <div className="container">
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-              aria-controls="navbar">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <Link className="navbar-brand" to="/">Demo</Link>
-          </div>
-          <div id="navbar" className="collapse navbar-collapse">
-            <ul className="nav navbar-nav">
-              <li className="active"><Link to="/">Home</Link></li>
-              <li><Link to="forms">Forms</Link></li>
-              <li><Link to="calendar">Calendar</Link></li>
-              <li><Link to="filings">Filings</Link></li>
-              <li><Link to="about">About</Link></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <AppBar
+        title="React Demo"
+        titleStyle={styles.title}
+        children={
+          <Tabs onChange={this.changeTab} value={this.value} style={styles.navbar}>
+            <Tab value={0} label="home" containerElement={<Link to="/" />} />
+            <Tab value={1} label="calendar" containerElement={<Link to="/calendar" />} />
+            <Tab value={2} label="filings" containerElement={<Link to="/filings" />} />
+        </Tabs>}
+        />
     );
   }
 }

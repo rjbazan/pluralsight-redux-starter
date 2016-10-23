@@ -6,28 +6,33 @@ import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const tableCol = {
-    width: '200px',
-    display: 'inline-block',
-    verticalAlign: 'top'
-}
-
-export class ReturnInfo extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-    }
+class ReturnInfo extends React.Component {
 
     render() {
+        const styles = {
+            tableCol: {
+                width: '200px',
+                display: 'inline-block',
+                verticalAlign: 'top'
+            },
+            selectField: {
+                marginLeft: '20px'
+            },
+            completeBtn: {
+                padding: '5px 10px'
+            }
+        }
+
         return (
             <TableRow onClick={this.props.getKey.bind(this, this.props.rowNumber) }>
                 <TableRowColumn>
-                    <div style={tableCol}>{this.props.return.type}</div>
-                    <div style={tableCol}>
+                    <div style={styles.tableCol}>{this.props.return.returnType}</div>
+                    <div style={styles.tableCol}>
                         <a href="javascript:void(0)">Sample Link</a>
                     </div>
                 </TableRowColumn>
                 <TableRowColumn>Frequency (required)
-                    <SelectField value={this.props.return.frequency} onChange={this.props.selectionHandler} maxHeight={200} style={{ marginLeft: '20px' }}>
+                    <SelectField value={this.props.return.frequency} onChange={this.props.selectionHandler} maxHeight={200} style={styles.selectField}>
                         <MenuItem value="Monthly" primaryText="Monthly" />
                         <MenuItem value="Quarterly" primaryText="Quarterly" />
                         <MenuItem value="Annually" primaryText="Anually" />
@@ -35,18 +40,18 @@ export class ReturnInfo extends React.Component {
                     <DateRange
                         label="Effective dates"
                         dateFormat={this.props.dateFormat}
-                        defaultDateTo={this.props.return.dateTo}
-                        defaultDateFrom={this.props.return.dateFrom}
+                        defaultDateTo={this.props.return.endDate}
+                        defaultDateFrom={this.props.return.startDate}
                         onFromDateChanged={this.props.onFromDateChanged}
                         onToDateChanged={this.props.onToDateChanged} />
                 </TableRowColumn>
                 <TableRowColumn>
-                    <div style={tableCol}>
+                    <div style={styles.tableCol}>
                         <Checkbox label="E-file this return?" checked={this.props.return.eFile} onCheck={this.props.eFileCheckHandler}/>
                     </div>
-                    <div style={tableCol}>
+                    <div style={styles.tableCol}>
                         <Checkbox label="Part of VAT group?" checked={this.props.return.partOfVatGroup} onCheck={this.props.vatGroupCheckHandler}/>
-                        <RaisedButton children={<span style={{ padding: '5px 10px' }}>Complete filing details</span>} />
+                        <RaisedButton children={<span style={styles.completeBtn}>Complete filing details</span>} />
                     </div>
                 </TableRowColumn>
             </TableRow>

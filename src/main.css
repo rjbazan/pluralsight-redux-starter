@@ -6,3 +6,9 @@
 .country-name {
     color: #FFFFFF !important;
 }
+body {
+    font-family: 'Roboto', sans-serif;
+}
+label {
+    font-weight: normal; /*clear bootstrap*/
+}

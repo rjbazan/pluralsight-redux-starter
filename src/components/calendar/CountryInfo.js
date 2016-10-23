@@ -67,8 +67,16 @@ export class CountryInfo extends React.Component {
     }
 
     render() {
+        const styles = {
+            spinner: {
+                position: 'absolute',
+                left: '40%',
+                bottom: '30%'
+            }
+        }
+
         return (
-            <div className="col-md-11">
+            <div>
                 <Table selectable={false}>
                     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                         <TableRow>
@@ -79,7 +87,7 @@ export class CountryInfo extends React.Component {
                     </TableHeader>
                     <TableBody displayRowCheckbox={false}>
                         {this.props.loading ? 
-                            <TableRow><TableRowColumn><div style={{position: 'absolute', left: '40%', bottom:'30%'}}>
+                            <TableRow><TableRowColumn><div style={styles.spinner}>
                                 <RefreshIndicator size={40} left={70} top={0} loadingColor="rgb(0, 188, 212)" status="loading"/>
                             </div></TableRowColumn></TableRow>
                             : this.props.returns.length ? 

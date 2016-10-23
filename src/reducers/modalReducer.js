@@ -11,7 +11,10 @@ export default function modalReducer(state = initialState, action) {
             return Object.assign({}, state, { startDate: action.date });
 
         case 'SELECT_END_DATE':
-            return Object.assign({}, state, { endDate: action.date });     
+            return Object.assign({}, state, { endDate: action.date });
+
+        case 'DISABLE_END_DATE':
+             return Object.assign({}, state, { endDateDisabled: action.value });    
 
         default:
             return state
@@ -22,5 +25,6 @@ const initialState = {
     frequency:  'Monthly',
     startDate: null,
     endDate: null,
-    returnType: 'Monthly'
+    returnType: 'Monthly',
+    endDateDisabled: false
 }
