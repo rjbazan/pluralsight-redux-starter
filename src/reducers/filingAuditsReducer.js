@@ -3,65 +3,65 @@ import * as actionType from './constants/filingAuditsConstants';
 export default function FilingAuditReducer(state = initialState, payload) {
 
     switch (payload.type) {
-        case actionType.FETCH_FILING_AUDITS:
-            return Object.assign({}, state, {
-                IsFetching: true
+    case actionType.FETCH_FILING_AUDITS:
+        return Object.assign({}, state, {
+            IsFetching: true
+        });
+    case actionType.FILING_AUDITS_FETCHED:
+        return Object.assign({}, state, {
+            IsFetching: false,
+            FilingAudits: payload.FilingAudits,
+            FilteredFilingAudits: payload.FilingAudits,
+            DateFormat: payload.DateFormat
+        });
+    case actionType.RESET_FILTER_FILING_AUDITS:
+
+        return Object.assign({}, state, {
+            FilteredFilingAudits: state.FilingAudits,
+            Filters: {ToDate: null, FromDate: null}
+        });
+    case actionType.FILTER_FILING_AUDITS:
+
+        if (payload.date.ToDate && payload.date.FromDate) {
+            let filteredAudits = state.FilingAudits.filter(audit => {
+                let date = audit.TransmissionDetails.FormattedTransmissionDate.split(/\s+/g);
+                let auditDate = parseDate(date[0]);
+
+                return auditDate >= payload.date.FromDate && auditDate <= payload.date.ToDate;
             });
-        case actionType.FILING_AUDITS_FETCHED:
-            return Object.assign({}, state, {
-                IsFetching: false,
-                FilingAudits: payload.FilingAudits,
-                FilteredFilingAudits: payload.FilingAudits,
-                DateFormat: payload.DateFormat
-            });
-        case actionType.RESET_FILTER_FILING_AUDITS:
 
             return Object.assign({}, state, {
-                FilteredFilingAudits: state.FilingAudits,
-                Filters: {ToDate: null, FromDate: null}
+                FilteredFilingAudits: filteredAudits,
+                Filters: {ToDate: payload.date.ToDate, FromDate: payload.date.FromDate}
             });
-        case actionType.FILTER_FILING_AUDITS:
+        } else if (payload.date.FromDate) {
+            let filteredAudits = state.FilingAudits.filter(audit => {
+                let date = audit.TransmissionDetails.FormattedTransmissionDate.split(/\s+/g);
+                let auditDate = parseDate(date[0]);
 
-            if (payload.date.ToDate && payload.date.FromDate) {
-                let filteredAudits = state.FilingAudits.filter(audit => {
-                    let date = audit.TransmissionDetails.FormattedTransmissionDate.split(/\s+/g);
-                    let auditDate = parseDate(date[0]);
+                return auditDate >= payload.date.FromDate;
+            });
 
-                    return auditDate >= payload.date.FromDate && auditDate <= payload.date.ToDate;
-                });
+            return Object.assign({}, state, {
+                FilteredFilingAudits: filteredAudits,
+                Filters: {ToDate: payload.date.ToDate, FromDate: payload.date.FromDate}
+            });
+        } else if (payload.date.ToDate) {
+            let filteredAudits = state.FilingAudits.filter(audit => {
+                let date = audit.TransmissionDetails.FormattedTransmissionDate.split(/\s+/g);
+                let auditDate = parseDate(date[0]);
 
-                return Object.assign({}, state, {
-                    FilteredFilingAudits: filteredAudits,
-                    Filters: {ToDate: payload.date.ToDate, FromDate: payload.date.FromDate}
-                });
-            } else if (payload.date.FromDate) {
-                let filteredAudits = state.FilingAudits.filter(audit => {
-                    let date = audit.TransmissionDetails.FormattedTransmissionDate.split(/\s+/g);
-                    let auditDate = parseDate(date[0]);
+                return auditDate <= payload.date.ToDate;
+            });
 
-                    return auditDate >= payload.date.FromDate;
-                });
-
-                return Object.assign({}, state, {
-                    FilteredFilingAudits: filteredAudits,
-                    Filters: {ToDate: payload.date.ToDate, FromDate: payload.date.FromDate}
-                });
-            } else if (payload.date.ToDate) {
-                let filteredAudits = state.FilingAudits.filter(audit => {
-                    let date = audit.TransmissionDetails.FormattedTransmissionDate.split(/\s+/g);
-                    let auditDate = parseDate(date[0]);
-
-                    return auditDate <= payload.date.ToDate;
-                });
-
-                return Object.assign({}, state, {
-                    FilteredFilingAudits: filteredAudits,
-                    Filters: {ToDate: payload.date.ToDate, FromDate: payload.date.FromDate}
-                });
-            }
-            break;
-        default:
-            return state;
+            return Object.assign({}, state, {
+                FilteredFilingAudits: filteredAudits,
+                Filters: {ToDate: payload.date.ToDate, FromDate: payload.date.FromDate}
+            });
+        }
+        break;
+    default:
+        return state;
     }
 }
 
@@ -130,12 +130,12 @@ const initialState = {
 };
 
 export function parseDate(input) {
-  let parts;
-  if (input.indexOf('-') !== -1) {
-    parts = input.split('-');
-    return new Date(parts[2], parts[1] - 1, parts[0]);
-  } else {
-    parts = input.split('/');
-    return new Date(parts[2], parts[0] - 1, parts[1]);
-  }
+    let parts;
+    if (input.indexOf('-') !== -1) {
+        parts = input.split('-');
+        return new Date(parts[2], parts[1] - 1, parts[0]);
+    } else {
+        parts = input.split('/');
+        return new Date(parts[2], parts[0] - 1, parts[1]);
+    }
 }

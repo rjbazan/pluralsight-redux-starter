@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,10 +14,10 @@ import {
 
 const validate = values => {
   const errors = {};
-  const requiredFields = [ 'frequency', 'startDate', 'returnType'];
+  const requiredFields = ['frequency', 'startDate', 'returnType'];
   requiredFields.forEach(field => {
-    if (!values[ field ]) {
-      errors[ field ] = 'Required';
+    if (!values[field]) {
+      errors[field] = 'Required';
     }
   });
 
@@ -43,28 +43,28 @@ class AddReturnModal extends React.Component {
         key="0"
         primary={false}
         onTouchTap={this.props.onClose}
-      />,
+        />,
       <FlatButton
         label="OK"
         key="1"
         primary
         keyboardFocused
         onTouchTap={this.props.handleSubmit}
-      />
+        />
     ];
 
     return (
       <div>
         <RaisedButton label="Add Return" onTouchTap={this.props.onOpen} />
-        <RaisedButton label="Remove Return" onTouchTap={this.props.onRemove} style={styles.addReturnBtn}/>
+        <RaisedButton label="Remove Return" onTouchTap={this.props.onRemove} style={styles.addReturnBtn} />
         <Dialog
           title="Add Return"
           actions={actions}
           modal
           open={this.props.open}
           onRequestClose={this.props.onClose}
-        >
-          <p>You are about to add a return to the Filing Calendar for {this.props.country}. 
+          >
+          <p>You are about to add a return to the Filing Calendar for {this.props.country}.
           Please select the report from the below list and specify the period for which you want to sign up for the particular return.</p>
           <form>
             <Field name="returnType" component={SelectField} floatingLabelText="VAT Return Type">
@@ -74,12 +74,12 @@ class AddReturnModal extends React.Component {
               <MenuItem value={"ESL Return"} primaryText="ESL Return" />
               <MenuItem value={"Intrastat Arrival"} primaryText="Intrastat Arrival" />
             </Field>
-            <br/>
-            <Field name="startDate" component={DatePicker} floatingLabelText="Start Date" style={styles.inline}/>
+            <br />
+            <Field name="startDate" component={DatePicker} floatingLabelText="Start Date" style={styles.inline} />
 
-            <Field name="checkbox" label="Only start date?" component={Checkbox} style={styles.inline} labelStyle={styles.label}/>
-            
-            <Field name="endDate" component={DatePicker} floatingLabelText="End Date" disabled={this.props.endDateDisabled}/>
+            <Field name="checkbox" label="Only start date?" component={Checkbox} style={styles.inline} labelStyle={styles.label} />
+
+            <Field name="endDate" component={DatePicker} floatingLabelText="End Date" disabled={this.props.endDateDisabled} />
 
             <Field name="frequency" component={SelectField} floatingLabelText="Frequency">
               <MenuItem value={null} primaryText=" " />
@@ -101,5 +101,14 @@ AddReturnModal = reduxForm({
   form: 'AddReturn', // a unique name for this form
   validate
 })(AddReturnModal);
+
+AddReturnModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  country: PropTypes.string,
+  open: PropTypes.bool.isRequired,
+  onOpen: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func
+};
 
 export default AddReturnModal;

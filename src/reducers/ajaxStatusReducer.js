@@ -9,5 +9,5 @@ export default function ajaxStatusReducer(state = 0, action) {
         return state - 1;
     }
 
-    return state
+    return state;
 }
