@@ -1,5 +1,5 @@
 import CalendarApi from '../api/mockCalendarApi';
-
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export const selectCompany = (company) => {
     return {type: 'SELECT_COMPANY', company};
@@ -59,9 +59,11 @@ export const loadReturns = (index, country) => {
 
 export const loadCompanies = (companies) => {
     return function(dispatch) {
+        dispatch(beginAjaxCall());
         return CalendarApi.getAllCompanies().then(companies => {
             dispatch(loadCompaniesSuccess(companies))
         }).catch(error => {
+            dispatch(ajaxCallError());
             throw(error);
         });
     }
@@ -69,9 +71,11 @@ export const loadCompanies = (companies) => {
 
 export const loadCountryReturns = (country) => {
     return function(dispatch) {
+        dispatch(beginAjaxCall());
         return CalendarApi.getCountryReturns(country).then(returns => {
             dispatch(loadReturnsSuccess(returns))
         }).catch(error => {
+            dispatch(ajaxCallError());
             throw(error);
         });
     }

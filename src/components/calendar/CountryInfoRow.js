@@ -20,6 +20,9 @@ class ReturnInfo extends React.Component {
             },
             completeBtn: {
                 padding: '5px 10px'
+            },
+            label: {
+                paddingRight: '25px'
             }
         }
 
@@ -31,7 +34,8 @@ class ReturnInfo extends React.Component {
                         <a href="javascript:void(0)">Sample Link</a>
                     </div>
                 </TableRowColumn>
-                <TableRowColumn>Frequency
+                <TableRowColumn>
+                    <span style={styles.label}>Frequency</span>
                     <SelectField value={this.props.return.frequency} onChange={this.props.onFrequencyChange} maxHeight={200} style={styles.selectField}>
                         <MenuItem value="Monthly" primaryText="Monthly" />
                         <MenuItem value="Quarterly" primaryText="Quarterly" />
