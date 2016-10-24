@@ -69,9 +69,10 @@ class AddReturnModal extends React.Component {
           <form>
             <Field name="returnType" component={SelectField} floatingLabelText="VAT Return Type">
               <MenuItem value={null} primaryText=" " />
-              <MenuItem value={'VAT Return'} primaryText="VAT Return"/>
-              <MenuItem value={'Interstatal'} primaryText="Interstatal"/>
-              <MenuItem value={'Other Listing'} primaryText="Other Listing"/>
+              <MenuItem value={'Annual VAT Return'} primaryText="Annual VAT Return" />
+              <MenuItem value={"Monthly VAT Return"} primaryText="Monthly VAT Return" />
+              <MenuItem value={"ESL Return"} primaryText="ESL Return" />
+              <MenuItem value={"Intrastat Arrival"} primaryText="Intrastat Arrival" />
             </Field>
             <br/>
             <Field name="startDate" component={DatePicker} floatingLabelText="Start Date" style={styles.inline}/>
@@ -82,9 +83,11 @@ class AddReturnModal extends React.Component {
 
             <Field name="frequency" component={SelectField} floatingLabelText="Frequency">
               <MenuItem value={null} primaryText=" " />
-              <MenuItem value={'Quarterly'} primaryText="Quarterly"/>
-              <MenuItem value={'Monthly'} primaryText="Monthly"/>
-              <MenuItem value={'Annually'} primaryText="Annually"/>
+              <MenuItem value={'Monthly'} primaryText="Monthly" />
+              <MenuItem value={'Bi-Monthly'} primaryText="Bi-Monthly" />
+              <MenuItem value={'Quarterly'} primaryText="Quarterly" />
+              <MenuItem value={'Semi-Annually'} primaryText="Semi-Annually" />
+              <MenuItem value={'Annually'} primaryText="Anually" />
             </Field>
 
           </form>

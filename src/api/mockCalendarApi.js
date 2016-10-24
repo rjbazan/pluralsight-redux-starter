@@ -129,14 +129,25 @@ const returns = [{
         partOfVatGroup: false
     },
     {
-        returnType: 'IntraStatal',
+        returnType: 'Intrastat Arrival',
         link: 'http://google.com.ar',
         frequency: 'Annually',
-        startDate: new Date('02/02/2010'),
-        endDate: new Date('02/02/2015'),
+        startDate: new Date('01/02/2010'),
+        endDate: new Date('01/02/2015'),
+        eFile: false,
+        country: 'Belgium',
+        company: 'Disco',
+        partOfVatGroup: true
+    },
+    {
+        returnType: 'ESL Return',
+        link: 'http://google.com.ar',
+        frequency: 'Annually',
+        startDate: new Date('01/02/2015'),
+        endDate: new Date('01/02/2016'),
         eFile: true,
         partOfVatGroup: true,
-        country: 'Portugal',
+        country: 'Belgium',
         company: 'Disco'
     },
     {

@@ -37,9 +37,11 @@ class ReturnInfo extends React.Component {
                 <TableRowColumn>
                     <span style={styles.label}>Frequency</span>
                     <SelectField value={this.props.return.frequency} onChange={this.props.onFrequencyChange} maxHeight={200} style={styles.selectField}>
-                        <MenuItem value="Monthly" primaryText="Monthly" />
-                        <MenuItem value="Quarterly" primaryText="Quarterly" />
-                        <MenuItem value="Annually" primaryText="Anually" />
+                        <MenuItem value='Monthly' primaryText="Monthly" />
+                        <MenuItem value='Bi-Monthly' primaryText="Bi-Monthly" />
+                        <MenuItem value='Quarterly' primaryText="Quarterly" />
+                        <MenuItem value='Semi-Annually' primaryText="Semi-Annually" />
+                        <MenuItem value='Annually' primaryText="Anually" />
                     </SelectField>
                     <DateRange
                         label="Effective dates"

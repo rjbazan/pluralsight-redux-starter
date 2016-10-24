@@ -25,11 +25,11 @@ export class CalendarPage extends React.Component {
     }
 
     handleSelectChange(event, index) {
-        this.props.dispatch(calendarActions.selectCompany(this.props.calendar.companies[index]));
+        this.props.dispatch(calendarActions.selectCompany(this.props.calendar.companies[index - 1]));
     }
 
     populateCompanies(company, index) {
-        return <MenuItem value={company.name} key={index} primaryText={company.name} />
+        return <MenuItem value={company.name} key={index + 1} primaryText={company.name} />;
     }
 
     setSelectedCountry(index) {
@@ -72,8 +72,8 @@ export class CalendarPage extends React.Component {
         return (
             <div>
                 <div className="col-md-12" style={styles.selectContainer}>
-                    <span style={styles.selectLabel}>Select Company</span>
-                    <SelectField value={this.props.calendar.selectedCompany.name} onChange={this.handleSelectChange} maxHeight={200}>
+                    <SelectField value={this.props.calendar.selectedCompany.name} onChange={this.handleSelectChange} maxHeight={200} floatingLabelText="Select Company">
+                        <MenuItem value={null} key="0" primaryText=" " />
                         {this.props.calendar.companies.map(this.populateCompanies)}
                     </SelectField>
                 </div>

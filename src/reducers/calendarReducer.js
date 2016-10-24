@@ -2,7 +2,7 @@ export default function calendarReducer(state = initialState, action) {
 
     switch (action.type) {
         case 'LOAD_COMPANIES_SUCCESS':
-            return Object.assign({}, state, { companies: action.companies, selectedCompany: action.companies[0] });
+            return Object.assign({}, state, { companies: action.companies });
 
         case 'LOAD_RETURNS':
             return  Object.assign({}, state, { isLoading: true, selectedCountry: action.index, countryName: action.country});  
@@ -92,7 +92,7 @@ export default function calendarReducer(state = initialState, action) {
 
 const initialState = {
     companies:  [],
-    selectedCompany: {name: '', countries: [], info: ''},
+    selectedCompany: {name: null, countries: [], info: ''},
     selectedCountry: null,
     returns: [],
     isLoading: false,
