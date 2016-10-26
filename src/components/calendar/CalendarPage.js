@@ -6,6 +6,7 @@ import * as modalActions from '../../actions/modalActions';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import ViewCountries from './ViewCountries';
 import CountryInfo from './CountryInfo';
@@ -64,6 +65,9 @@ export class CalendarPage extends React.Component {
       selectLabel: {
         marginRight: '20px'
       },
+      secondaryBtn: {
+        marginLeft: '20px'
+      },
       selectContainer: {
         marginBottom: '30px',
         padding: '15px'
@@ -80,7 +84,9 @@ export class CalendarPage extends React.Component {
         </div>
         <div className="calendar-container">
           <div className="country-list">
-            <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry} selectedCountry={this.props.calendar.selectedCountry} />
+            <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} 
+            setSelected={this.setSelectedCountry} 
+            selectedCountry={this.props.calendar.selectedCountry} />
           </div>
           {this.props.calendar.selectedCompany.name &&
             <div className="table-container">
@@ -93,7 +99,8 @@ export class CalendarPage extends React.Component {
                 country={this.props.calendar.countryName}
                 disableEndDateHandler={this.disableEndDateHandler}
                 onRemove={this.handleRemoval} />
-
+                <RaisedButton label="Go To Next Country" primary onClick={this.changeCountryHandler} />
+                <RaisedButton label="Save & Finish Later" primary style={styles.secondaryBtn} />
             </div>}
         </div>
       </div>

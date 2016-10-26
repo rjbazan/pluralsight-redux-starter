@@ -57,6 +57,16 @@ export const loadReturns = (index, country) => {
     return {type: 'LOAD_RETURNS', index, country};
 };
 
+export const loadSettingsSuccess = (settings) => ({type: 'LOAD_SETTINGS_SUCCESS', settings});
+
+export const savePreferenceSuccess = (resp) => ({type: 'SAVE_PREFERENCE_SUCCESS', resp});
+
+export const deletePreferenceSuccess = (resp) => ({type: 'DELETE_PREFERENCE_SUCCESS', resp});
+
+export const loadReportsSuccess = (reports) => ({type: 'LOAD_REPORTS_SUCCESS', reports});
+
+export const loadFrequenciesSuccess = (frequencies) => ({type: 'LOAD_FREQUENCIES_SUCCESS', frequencies});
+
 export const loadCompanies = (companies) => {
     return function(dispatch) {
         dispatch(beginAjaxCall());
@@ -68,6 +78,67 @@ export const loadCompanies = (companies) => {
         });
     };
 };
+
+export const getSettings = (countryId, countryCode) => {
+    return function (dispatch) {
+        dispatch(beginAjaxCall());
+        return CalendarApi.GetSettings(countryId, countryCode).then(settings => {
+            dispatch(loadSettingsSuccess(settings));
+        }).catch(error => {
+            dispatch(ajaxCallError());
+            throw (error);
+        });
+    };
+};
+
+export const savePreference = (preference) => {
+    return function (dispatch) {
+        dispatch(beginAjaxCall());
+        return CalendarApi.SavePreference(preference).then(resp => {
+            dispatch(savePreferenceSuccess(resp));
+        }).catch(error => {
+            dispatch(ajaxCallError());
+            throw (error);
+        });
+    };
+};
+
+export const deletePreference = (preference) => {
+    return function (dispatch) {
+        dispatch(beginAjaxCall());
+        return CalendarApi.DeletePreference(preference).then(resp => {
+            dispatch(deletePreferenceSuccess(resp));
+        }).catch(error => {
+            dispatch(ajaxCallError());
+            throw (error);
+        });
+    };
+};
+
+export const getAvailableReports = (countryCode) => {
+    return function (dispatch) {
+        dispatch(beginAjaxCall());
+        return CalendarApi.GetAvailableReports(countryCode).then(reports => {
+            dispatch(loadReportsSuccess(reports));
+        }).catch(error => {
+            dispatch(ajaxCallError());
+            throw (error);
+        });
+    };
+};
+
+export const getAvailableFrequencies = (reportType, countryCode) => {
+    return function (dispatch) {
+        dispatch(beginAjaxCall());
+        return CalendarApi.GetAvailableFrequencies(reportType, countryCode).then(frequencies => {
+            dispatch(loadFrequenciesSuccess(frequencies));
+        }).catch(error => {
+            dispatch(ajaxCallError());
+            throw (error);
+        });
+    };
+};
+
 
 export const loadCountryReturns = (country) => {
     return function(dispatch) {

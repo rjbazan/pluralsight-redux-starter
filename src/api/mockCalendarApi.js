@@ -67,7 +67,7 @@ class CalendarApi {
 
   static getCountryReturns(id) {
       return new Promise((resolve, reject) => {
-          let filtered = returns.filter(item => item.country == id)
+        let filtered = returns.filter(item => item.country == id);
       setTimeout(() => {
         resolve(Object.assign([], filtered));
       }, delay);
@@ -116,20 +116,37 @@ class CalendarApi {
 
 export default CalendarApi;
 
+const FilingSettingsViewModel = {
+  SelectedCompany_Id: '',
+  SelectedCountryCode: '',
+  AvailableCompanies: [{
+    Name: 'Convey', Guid: 'ee3332', Company_Id: 1
+  }, {
+    Name: 'Microsoft', Guid: 'asdasd', Company_Id: 2
+  }],
+  AvailableCountries: [{
+    Name: 'Belgium', Code: 'BE', Country_Id: 1
+  }, {
+    Name: 'Argentina', Code: 'ARG', Country_Id: 2
+  }],
+  FilingPreferences: []
+};
+
 
 const returns = [{
-        returnType: 'Annual VAT Return',
-        link: 'http://google.com.ar',
-        frequency: 'Annually',
-        startDate: new Date('02/02/2010'),
-        endDate: new Date('02/02/2015'),
-        eFile: true,
-        country: 'Belgium',
-        company: 'Disco',
-        partOfVatGroup: false
+        CountryCode: 'BE',
+        Company_Id: 1,
+        FromattedReportType: '',
+        ReportType: '',
+        SelectedFrequencyType: '',
+        AvailableFrequencyTypes: [],
+        EffectiveDate: '',
+        ExpirationDate: '',
+        FilingMethod: '',
+        IsPartOfVatGroup: true
     },
     {
-        returnType: 'Intrastat Arrival',
+        ReturnType: 'Intrastat Arrival',
         link: 'http://google.com.ar',
         frequency: 'Annually',
         startDate: new Date('01/02/2010'),
@@ -140,7 +157,7 @@ const returns = [{
         partOfVatGroup: true
     },
     {
-        returnType: 'ESL Return',
+        ReturnType: 'ESL Return',
         link: 'http://google.com.ar',
         frequency: 'Annually',
         startDate: new Date('01/02/2015'),
@@ -151,7 +168,7 @@ const returns = [{
         company: 'Disco'
     },
     {
-        returnType: 'Rodrigo',
+        ReturnType: 'Rodrigo',
         link: 'http://lagaceta.com.ar',
         frequency: 'Monthly',
         startDate: new Date('02/07/2010'),
@@ -160,4 +177,4 @@ const returns = [{
         partOfVatGroup: false,
         country: 'Portugal',
         company: 'Disco'
-    }]
+    }];

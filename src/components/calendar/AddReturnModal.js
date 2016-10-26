@@ -111,7 +111,8 @@ AddReturnModal.propTypes = {
 
 
 AddReturnModal = reduxForm({
-  form: 'AddReturn'  // a unique identifier for this form
+  form: 'AddReturn',
+  validate // a unique identifier for this form
 })(AddReturnModal);
 
 // Decorate with connect to read form values
