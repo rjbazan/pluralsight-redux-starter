@@ -15,3 +15,17 @@ label {
 #li:hover:not(.selected) {
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
+.company-select {
+    padding: 15px;
+}
+.calendar-container {
+  display: -webkit-flex;
+  display: flex;
+  padding: 15px;
+}
+.country-list {
+  flex: 1
+}
+.table-container {
+  flex: 11
+}

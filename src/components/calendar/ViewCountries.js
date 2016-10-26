@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -49,10 +50,14 @@ class ViewCountries extends React.Component {
   }
 
   populateCountries(company, index) {
+    let btnClass = classNames({
+      'selected country-name': this.props.selectedCountry == index
+    });
+
     return (
-      <li key={index} onClick={this.props.setSelected.bind(this, index)} style={styles.box.margin}>
-        <Paper style={styles.countryBox} className={`${this.props.selectedCountry == index ? 'selected' : ''}`} zDepth={1} id="li">
-          <span style={styles.countryBox.countryName} className={`${this.props.selectedCountry == index ? 'country-name' : ''}`}>{company}</span>
+      <li key={index}  style={styles.box.margin}>
+        <Paper style={styles.countryBox} className={btnClass} zDepth={1} onClick={this.props.setSelected.bind(this, index)} role="button" tabIndex={index}>
+          <span style={styles.countryBox.countryName} className={btnClass}>{company}</span>
         </Paper>
       </li>
     );

@@ -77,7 +77,9 @@ export default function calendarReducer(state = initialState, action) {
 
     case 'ADD_RETURN':
         return Object.assign({}, state, {
-            isModalOpen: false, returns: [...state.returns, Object.assign({}, action.form)]
+            isModalOpen: false, returns: [...state.returns, Object.assign({}, action.form, {
+                endDate: action.hasEndDate ? action.form.endDate : null
+            })]
         });
 
     case 'REMOVE_RETURN':

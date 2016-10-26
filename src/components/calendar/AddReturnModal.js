@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -77,9 +78,9 @@ class AddReturnModal extends React.Component {
             <br />
             <Field name="startDate" component={DatePicker} floatingLabelText="Start Date" style={styles.inline} />
 
-            <Field name="checkbox" label="Only start date?" component={Checkbox} style={styles.inline} labelStyle={styles.label} />
+            <Field name="hasEndDate" label="Only start date?" component={Checkbox} style={styles.inline} labelStyle={styles.label} />
 
-            <Field name="endDate" component={DatePicker} floatingLabelText="End Date" disabled={this.props.endDateDisabled} />
+            <Field name="endDate" component={DatePicker} floatingLabelText="End Date" disabled={this.props.hasEndDateValue} />
 
             <Field name="frequency" component={SelectField} floatingLabelText="Frequency">
               <MenuItem value={null} primaryText=" " />
@@ -97,18 +98,32 @@ class AddReturnModal extends React.Component {
   }
 }
 
-AddReturnModal = reduxForm({
-  form: 'AddReturn', // a unique name for this form
-  validate
-})(AddReturnModal);
 
 AddReturnModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   country: PropTypes.string,
   open: PropTypes.bool.isRequired,
+  hasEndDateValue: PropTypes.bool.isRequired,
   onOpen: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func
 };
+
+
+AddReturnModal = reduxForm({
+  form: 'AddReturn'  // a unique identifier for this form
+})(AddReturnModal);
+
+// Decorate with connect to read form values
+const selector = formValueSelector('AddReturn'); // <-- same as form name
+AddReturnModal = connect(
+  state => {
+    const hasEndDateValue = selector(state, 'hasEndDate');
+
+    return {
+      hasEndDateValue
+    };
+  }
+)(AddReturnModal);
 
 export default AddReturnModal;

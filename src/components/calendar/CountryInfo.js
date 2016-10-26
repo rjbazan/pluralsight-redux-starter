@@ -64,7 +64,7 @@ export class CountryInfo extends React.Component {
       spinner: {
         position: 'absolute',
         left: '40%',
-        top: '50%'
+        top: '30%'
       }
     };
 
@@ -82,8 +82,10 @@ export class CountryInfo extends React.Component {
               {this.props.loading ?
                 <TableRow>
                   <TableRowColumn>
+                  <div style={{position: 'relative', height: '80px'}}>
                     <div style={styles.spinner}>
                       <RefreshIndicator size={40} left={70} top={0} loadingColor="rgb(0, 188, 212)" status="loading" />
+                    </div>
                     </div>
                   </TableRowColumn>
                 </TableRow>

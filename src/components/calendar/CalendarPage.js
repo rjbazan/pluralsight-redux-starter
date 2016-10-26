@@ -65,36 +65,37 @@ export class CalendarPage extends React.Component {
         marginRight: '20px'
       },
       selectContainer: {
-        marginBottom: '30px'
+        marginBottom: '30px',
+        padding: '15px'
       }
     };
 
     return (
-      <div>
-        <div className="col-md-12" style={styles.selectContainer}>
+      <div className="">
+        <div style={styles.selectContainer}>
           <SelectField value={this.props.calendar.selectedCompany.name} onChange={this.handleSelectChange} maxHeight={200} floatingLabelText="Select Company">
             <MenuItem value={null} key="0" primaryText=" " />
             {this.props.calendar.companies.map(this.populateCompanies)}
           </SelectField>
         </div>
-        <div className="col-md-1">
-          <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry} selectedCountry={this.props.calendar.selectedCountry} />
+        <div className="calendar-container">
+          <div className="country-list">
+            <ViewCountries selectedCompanyCountries={this.props.calendar.selectedCompany.countries} setSelected={this.setSelectedCountry} selectedCountry={this.props.calendar.selectedCountry} />
+          </div>
+          {this.props.calendar.selectedCompany.name &&
+            <div className="table-container">
+              <CountryInfo selectedCompany={this.props.calendar.selectedCompany.name} returns={this.props.calendar.returns} loading={this.props.calendar.isLoading} />
+              <AddReturnModal
+                onOpen={this.handleOpen}
+                onClose={this.handleClose}
+                open={this.props.calendar.isModalOpen}
+                onSubmit={this.handleSubmit}
+                country={this.props.calendar.countryName}
+                disableEndDateHandler={this.disableEndDateHandler}
+                onRemove={this.handleRemoval} />
+
+            </div>}
         </div>
-        {this.props.calendar.selectedCompany.name &&
-        <div className="col-md-11">
-          <CountryInfo selectedCompany={this.props.calendar.selectedCompany.name} returns={this.props.calendar.returns} loading={this.props.calendar.isLoading} />
-          <AddReturnModal
-            onOpen={this.handleOpen}
-            onClose={this.handleClose}
-            open={this.props.calendar.isModalOpen}
-            onSubmit={this.handleSubmit}
-            country={this.props.calendar.countryName}
-            disableEndDateHandler={this.disableEndDateHandler}
-            endDateDisabled={this.props.modal.endDateDisabled}
-            onRemove={this.handleRemoval} />
-
-        </div>}
-
       </div>
     );
   }
