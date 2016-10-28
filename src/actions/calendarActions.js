@@ -57,6 +57,8 @@ export const loadReturns = (index, country) => {
     return {type: 'LOAD_RETURNS', index, country};
 };
 
+export const updatePreferences = (preferences) => ({type: 'UPDATE_PREFERENCES', preferences});
+
 export const loadSettingsSuccess = (settings) => ({type: 'LOAD_SETTINGS_SUCCESS', settings});
 
 export const savePreferenceSuccess = (resp) => ({type: 'SAVE_PREFERENCE_SUCCESS', resp});

@@ -43,6 +43,7 @@ export class CountryInfo extends React.Component {
   }
 
   createReturnRow(item, index) {
+
     return (<ReturnInfo key={index}
       return={item}
       onFrequencyChange={this.handleSelectChange}
@@ -50,6 +51,9 @@ export class CountryInfo extends React.Component {
       onFromDateChanged={this.onFromDateChanged}
       onToDateChanged={this.onToDateChanged}
       getKey={this.getKey}
+      onOpen={this.props.onOpen}
+      onClose={this.props.onClose}
+      open={this.props.open}
       onEfileChecked={this.eFileCheckHandler}
       onVatGroupChecked={this.vatGroupCheckHandler} />
     );
@@ -73,9 +77,13 @@ export class CountryInfo extends React.Component {
           <Table selectable={true}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
-                <TableHeaderColumn>Return Name</TableHeaderColumn>
+                <TableHeaderColumn>Return</TableHeaderColumn>
+                <TableHeaderColumn></TableHeaderColumn>
                 <TableHeaderColumn>Filing Frequency</TableHeaderColumn>
-                <TableHeaderColumn>E-filing</TableHeaderColumn>
+                <TableHeaderColumn>Period</TableHeaderColumn>
+                <TableHeaderColumn>Filing Method</TableHeaderColumn>
+                <TableHeaderColumn></TableHeaderColumn>
+                <TableHeaderColumn></TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>

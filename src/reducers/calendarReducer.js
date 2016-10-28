@@ -85,7 +85,18 @@ export default function calendarReducer(state = initialState, action) {
     case 'REMOVE_RETURN':
         return Object.assign({}, state, {
             returns: [...state.returns.slice(0, state.returns.length - 1), ...state.returns.slice(state.returns.length)]
-        });              
+        });
+
+    case 'UPDATE_RETURN':
+
+        return Object.assign({}, state, {
+            returns: state.returns.map((item, index) => {
+                if (action.rowNumber == index) {
+                    return Object.assign({}, item, { frequency: action.frequency });
+                }
+                return item;
+            })
+        });       
 
     default:
         return state;

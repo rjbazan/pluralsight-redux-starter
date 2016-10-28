@@ -90,7 +90,13 @@ export class CalendarPage extends React.Component {
           </div>
           {this.props.calendar.selectedCompany.name &&
             <div className="table-container">
-              <CountryInfo selectedCompany={this.props.calendar.selectedCompany.name} returns={this.props.calendar.returns} loading={this.props.calendar.isLoading} />
+              <CountryInfo 
+                selectedCompany={this.props.calendar.selectedCompany.name} 
+                returns={this.props.calendar.returns} 
+                loading={this.props.calendar.isLoading}
+                onOpen={this.handleOpen}
+                onClose={this.handleClose}
+                open={this.props.calendar.isModalOpen} />
               <AddReturnModal
                 onOpen={this.handleOpen}
                 onClose={this.handleClose}

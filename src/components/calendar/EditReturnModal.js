@@ -4,7 +4,8 @@ import { Field, reduxForm, formValueSelector } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import EditIcon from 'material-ui/svg-icons/action/settings';
 import MenuItem from 'material-ui/MenuItem';
 
 import {
@@ -13,23 +14,11 @@ import {
   Checkbox
 } from 'redux-form-material-ui';
 
-const validate = values => {
-  const errors = {};
-  const requiredFields = ['frequency', 'startDate', 'returnType'];
-  requiredFields.forEach(field => {
-    if (!values[field]) {
-      errors[field] = 'Required';
-    }
-  });
-
-  return errors;
-};
-
 
 /**
  * This modal contains a form to add a new return for a previously selected country.
  */
-class AddReturnModal extends React.Component {
+class EditReturnModal extends React.Component {
 
   render() {
     const styles = {
@@ -56,17 +45,17 @@ class AddReturnModal extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Add Return" onTouchTap={this.props.onOpen} />
-        <RaisedButton label="Remove Return" onTouchTap={this.props.onRemove} style={styles.addReturnBtn} />
+      <FloatingActionButton mini onTouchTap={this.props.onOpen} >
+        <EditIcon />
+      </FloatingActionButton>
         <Dialog
-          title="Add Return"
+          title="Edit Return"
           actions={actions}
           modal
           open={this.props.open}
           onRequestClose={this.props.onClose}
           >
-          <p>You are about to add a return to the Filing Calendar for {this.props.country}.
-          Please select the report from the below list and specify the period for which you want to sign up for the particular return.</p>
+          <p>Edit return here</p>
           <form>
             <Field name="returnType" component={SelectField} floatingLabelText="VAT Return Type">
               <MenuItem value={null} primaryText=" " />
@@ -78,9 +67,7 @@ class AddReturnModal extends React.Component {
             <br />
             <Field name="startDate" component={DatePicker} floatingLabelText="Start Date" style={styles.inline} />
 
-            <Field name="hasEndDate" label="Only start date?" component={Checkbox} style={styles.inline} labelStyle={styles.label} />
-
-            <Field name="endDate" component={DatePicker} floatingLabelText="End Date" disabled={this.props.hasEndDateValue} />
+            <Field name="endDate" component={DatePicker} floatingLabelText="End Date" />
 
             <Field name="frequency" component={SelectField} floatingLabelText="Frequency">
               <MenuItem value={null} primaryText=" " />
@@ -99,32 +86,29 @@ class AddReturnModal extends React.Component {
 }
 
 
-AddReturnModal.propTypes = {
+EditReturnModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  country: PropTypes.string,
   open: PropTypes.bool.isRequired,
-  hasEndDateValue: PropTypes.bool,
   onOpen: PropTypes.func.isRequired,
-  onRemove: PropTypes.func,
   handleSubmit: PropTypes.func
 };
 
+function mapStateToProps(state, ownProps) {
+  return {
+    calendar: state.calendar,
+    modal: state.modal
+  };
+}
+// Decorate with reduxForm(). It will read the initialValues prop provided by connect()
+EditReturnModal = reduxForm({
+  form: 'EditReturn'  // a unique identifier for this form
+})(EditReturnModal);
 
-AddReturnModal = reduxForm({
-  form: 'AddReturn',
-  validate // a unique identifier for this form
-})(AddReturnModal);
-
-// Decorate with connect to read form values
-const selector = formValueSelector('AddReturn'); // <-- same as form name
-AddReturnModal = connect(
+// You have to connect() to any reducers that you wish to connect to yourself
+EditReturnModal = connect(
   state => {
-    const hasEndDateValue = selector(state, 'hasEndDate');
+    return { initialValues: state.calendar.returns[0] } // pull initial values from account reducer
+  }            // bind account loading action creator
+)(EditReturnModal);
 
-    return {
-      hasEndDateValue
-    };
-  }
-)(AddReturnModal);
-
-export default AddReturnModal;
+export default EditReturnModal;

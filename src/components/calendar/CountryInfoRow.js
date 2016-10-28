@@ -5,6 +5,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
+import EditReturnModal from './EditReturnModal';
 
 class ReturnInfo extends React.Component {
 
@@ -29,37 +30,33 @@ class ReturnInfo extends React.Component {
     return (
       <TableRow onClick={this.props.getKey.bind(this, this.props.rowNumber)}>
         <TableRowColumn>
-          <div style={styles.tableCol}>{this.props.return.returnType}</div>
-          <div style={styles.tableCol}>
-            <a href="javascript:void(0)">Sample Link</a>
-          </div>
+          <div>{this.props.return.returnType}</div>
         </TableRowColumn>
         <TableRowColumn>
-          <span style={styles.label}>Frequency</span>
-          <SelectField value={this.props.return.frequency} onChange={this.props.onFrequencyChange} maxHeight={200} style={styles.selectField}>
-            <MenuItem value="Monthly" primaryText="Monthly" />
-            <MenuItem value="Bi-Monthly" primaryText="Bi-Monthly" />
-            <MenuItem value="Quarterly" primaryText="Quarterly" />
-            <MenuItem value="Semi-Annually" primaryText="Semi-Annually" />
-            <MenuItem value="Annually" primaryText="Anually" />
-          </SelectField>
-          <DateRange
-            label="Effective dates"
-            dateFormat={this.props.dateFormat}
-            defaultDateTo={this.props.return.endDate}
-            defaultDateFrom={this.props.return.startDate}
-            onFromDateChanged={this.props.onFromDateChanged}
-            onToDateChanged={this.props.onToDateChanged} />
+          <a href="javascript:void(0)">Sample Link</a>
         </TableRowColumn>
         <TableRowColumn>
-          <div style={styles.tableCol}>
-            <Checkbox label="E-file this return?" checked={this.props.return.eFile} onCheck={this.props.onEfileChecked} />
-          </div>
-          <div style={styles.tableCol}>
-            <Checkbox label="Part of VAT group?" checked={this.props.return.partOfVatGroup} onCheck={this.props.onVatGroupChecked} />
-            <RaisedButton children={<span style={styles.completeBtn}>Complete filing details</span>} />
-          </div>
+          <div>{this.props.return.frequency}</div>
         </TableRowColumn>
+        <TableRowColumn>
+          <div>{this.props.return.startDate} - {this.props.return.endDate}</div>
+        </TableRowColumn>
+        <TableRowColumn>
+          <div>{this.props.return.filingMethod}</div>
+        </TableRowColumn>
+        <TableRowColumn>
+          empty
+        </TableRowColumn>
+        <TableRowColumn>
+          <EditReturnModal
+            onOpen={this.props.onOpen}
+            onClose={this.props.onClose}
+            open={this.props.open}
+            defaultFrequency={this.props.return.frequency}
+            defaultStartDate={this.props.return.startDate}
+            defaultEndDate={this.props.return.endDate}
+            defaultReturnType={this.props.return.returnType} />
+        </TableRowColumn>      
       </TableRow>
     );
   }
