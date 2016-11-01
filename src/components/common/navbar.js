@@ -25,6 +25,7 @@ class Navbar extends React.Component {
             <Tab value={0} label="home" containerElement={<Link to="/" />} />
             <Tab value={1} label="calendar" containerElement={<Link to="/calendar" />} />
             <Tab value={2} label="filings" containerElement={<Link to="/filings" />} />
+            <Tab value={2} label="forms" containerElement={<Link to="/forms" />} />
           </Tabs>}
         />
     );

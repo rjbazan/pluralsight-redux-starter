@@ -1,0 +1,105 @@
+/**
+ * Upload field polyfill until mdl implements it ... if ever ...
+ */
+.mdl-uploadfield {
+  position: relative;
+  display: inline-block;
+  padding: 20px 0;
+  width: 256px;
+}
+.mdl-uploadfield .mdl-uploadfield__input {
+  position: relative;
+  width: 100%;
+  padding: 4px 0;
+  border: none;
+  font-size: 16px;
+  border-radius: 0;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.870588);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+}
+.mdl-uploadfield .mdl-uploadfield__label {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  top: 24px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 16px;
+  pointer-events: none;
+  white-space: nowrap;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.36);
+}
+.mdl-uploadfield .mdl-uploadfield__label:after {
+  background-color: #3f51b5;
+  bottom: 15px;
+  content: '';
+  height: 2px;
+  left: 45%;
+  position: absolute;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  visibility: hidden;
+  width: 10px;
+}
+.mdl-uploadfield .mdl-uploadfield__error {
+  color: #d50000;
+  position: absolute;
+  font-size: 12px;
+  margin-top: 3px;
+  visibility: hidden;
+  display: block;
+}
+.mdl-uploadfield.is-dirty .mdl-uploadfield__input {
+  color: rgba(0, 0, 0, 0.870588);
+}
+.mdl-uploadfield.is-dirty .mdl-uploadfield__label {
+  visibility: hidden;
+}
+.mdl-uploadfield.is-focused .mdl-uploadfield__input {
+  outline: none;
+}
+.mdl-uploadfield.is-focused .mdl-uploadfield__label:after {
+  left: 0;
+  visibility: visible;
+  width: 100%;
+}
+.mdl-uploadfield.is-invalid .mdl-uploadfield__input {
+  border-color: #d50000;
+  box-shadow: none;
+}
+.mdl-uploadfield.is-invalid .mdl-uploadfield__label:after {
+  background-color: #d50000;
+}
+.mdl-uploadfield.is-invalid .mdl-uploadfield__error {
+  visibility: visible;
+}
+.mdl-uploadfield.mdl-uploadfield--floating-label .mdl-uploadfield__label {
+  color: #3f51b5;
+  font-size: 12px;
+  top: 4px;
+  visibility: visible;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mdl-uploadfield.mdl-uploadfield--floating-label.has-placeholder .mdl-uploadfield__label {
+  transition: none;
+}
+.mdl-uploadfield.mdl-uploadfield--floating-label.is-focused .mdl-uploadfield__label, .mdl-uploadfield.mdl-uploadfield--floating-label.is-dirty .mdl-uploadfield__label, .mdl-uploadfield.mdl-uploadfield--floating-label.has-placeholder .mdl-uploadfield__label {
+  color: #3f51b5;
+  font-size: 12px;
+  top: 4px;
+  visibility: visible;
+}
+.mdl-uploadfield.mdl-uploadfield--floating-label.is-invalid .mdl-uploadfield__label {
+  color: #d50000;
+  font-size: 12px;
+}
+
