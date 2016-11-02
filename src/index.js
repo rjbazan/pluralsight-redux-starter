@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import HomePage from './components/HomePage.js';
 import routes from './routes';
 import {loadCompanies} from './actions/calendarActions';
+import {loadAdministration} from './actions/formActions';
 import configureStore from './store/configureStore';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
@@ -27,6 +28,7 @@ const myTheme = getMuiTheme({
 });
 const store = configureStore();
 store.dispatch(loadCompanies());
+store.dispatch(loadAdministration());
 render(
     <Provider store={store}>
         <MuiThemeProvider muiTheme={myTheme}>
