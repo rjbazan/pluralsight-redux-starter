@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import './fileUpload.css';
 
 export default class UploadField extends Component {
@@ -30,6 +32,7 @@ export default class UploadField extends Component {
   }
 
   onChange(e) {
+    this.textVal = e.target.files[0].name;
     this.props.input.onBlur(e);
     if (this.props.onChange) {
       this.props.onChange(e);
@@ -60,11 +63,32 @@ export default class UploadField extends Component {
       onClick: this.onClick,
       onChange: this.onChange
     };
+    const styles = {
+      exampleImageInput: {
+        cursor: 'pointer',
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        right: 0,
+        left: 0,
+        width: '100%',
+        opacity: 0
+      },
+      inline: {
+        display: 'inline-block'
+      }
+    };
     return (
       <div className={className}>
-        <input className={'mdl-uploadfield__input'} ref={'browse'} {...input} {...props} />
-        <label className={'mdl-uploadfield__label'}>{label}</label>
-        {touched && error && <span className="mdl-uploadfield__error">{error}</span>}
+      <div style={styles.inline}>
+        <FlatButton label="Upload Certificate" labelPosition="before">
+          <input type="file" style={styles.exampleImageInput} ref={'browse'} {...input} {...props} />
+        </FlatButton>
+      </div>
+        <div style={styles.inline}>
+        <TextField value={this.textVal}></TextField>
+        </div>
+        
       </div>
     );
   }

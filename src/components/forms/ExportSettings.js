@@ -6,8 +6,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 // import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import {FileUpload} from 'material-ui/svg-icons/file/file-upload';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { FileUpload } from 'material-ui/svg-icons/file/file-upload';
 import UploadField from './FileUpload';
 
 import {
@@ -23,21 +23,31 @@ import {
  */
 
 const styles = {
-      inline: { display: 'inline-block', width: '20%' },
-      block: { display: 'block' },
-      label: { fontSize: '14px' },
-      gutter: { marginBottom: '30px' },
-      padding: { padding: '20px' }
-    };
+  inline: { display: 'inline-block', width: '20%' },
+  block: { display: 'block' },
+  label: { fontSize: '14px' },
+  width: { maxWidth: 280 },
+  gutter: { marginBottom: '30px' },
+  padding: { paddingBottom: '20px', paddingLeft: 20 },
+  firstCol: { width: '50%', display: 'inline-block' },
+  secondCol: { width: '50%', display: 'inline-block', verticalAlign: 'top' }
+};
 
+const populateCompanies = (company, index) => {
+  return <MenuItem value={company.Country_Id} key={index + 1} primaryText={company.Name} />;
+};
+
+const populateAdminTypes = (adminType, index) => {
+  return <MenuItem value={adminType.Id} key={index + 1} primaryText={adminType.Name} />;
+};
 
 let ExportSettings = props => {
-  
+
   return (
     <div style={styles.padding}>
-    <form onSubmit={props.handleSubmit}>
+      <form onSubmit={props.handleSubmit}>
 
-      {/*<Field name="CheckAll" label="Select All" component={Checkbox} />
+        {/*<Field name="CheckAll" label="Select All" component={Checkbox} />
 
           <Field name="CompanySettings" label="Company Settings" component={Checkbox} />
 
@@ -59,7 +69,7 @@ let ExportSettings = props => {
 
           <Field name="Users" label="Users" component={Checkbox} />*/}
 
-      {/*<Field name="checkAll" component={RadioButtonGroup}>
+        {/*<Field name="checkAll" component={RadioButtonGroup}>
           <RadioButton value="0" label="Not Import" style={styles.inline} />
           <RadioButton value="1" label="Overwrite" style={styles.inline} />
           <RadioButton value="2" label="Insert" style={styles.inline} />
@@ -76,84 +86,114 @@ let ExportSettings = props => {
           <RadioButton value="1" label="Overwrite" style={styles.inline} />
           <RadioButton value="2" label="Insert" style={styles.inline} />
         </Field>*/}
-        <h3>General Information</h3>
-      <div>
-        <Field name="Country" component={SelectField} floatingLabelText="Country">
-          <MenuItem value={null} primaryText=" " />
-          <MenuItem value="monthly" primaryText="Monthly" />
-          <MenuItem value="yearly" primaryText="Yearly" />
-          <MenuItem value="lifetime" primaryText="Lifetime" />
-        </Field>
-      </div>
 
-      <div>
-        <Field name="AdministrationType" component={SelectField} floatingLabelText="Administration Type">
-          <MenuItem value={null} primaryText=" " />
-          <MenuItem value="monthly" primaryText="Monthly" />
-          <MenuItem value="yearly" primaryText="Yearly" />
-          <MenuItem value="lifetime" primaryText="Lifetime" />
-        </Field>
-      </div>
+        <br />
+        <fieldset>
+          <legend>General Information</legend>
+          <div>
+            <Field name="Country_Id" component={SelectField} floatingLabelText="Country">
+              <MenuItem value={null} primaryText=" " />
+              {props.countries.map(populateCompanies)}
+            </Field>
+          </div>
 
-      <Field name="VATNumber" component={TextField} floatingLabelText="Administration Type" style={styles.block} />
+          <div>
+            <Field name="AdministrationType" component={SelectField} floatingLabelText="Administration Type">
+              <MenuItem value={null} primaryText=" " />
+              {props.adminTypes.map(populateAdminTypes)}
+            </Field>
+          </div>
 
-      <div>
-        <Field name="VATNumberType" component={SelectField} floatingLabelText="VAT Number Type">
-          <MenuItem value={null} primaryText=" " />
-          <MenuItem value="monthly" primaryText="Monthly" />
-          <MenuItem value="yearly" primaryText="Yearly" />
-          <MenuItem value="lifetime" primaryText="Lifetime" />
-        </Field>
-      </div>
+          <Field name="VATNumber" component={TextField} floatingLabelText="Administration Type" />
 
-      <Field name="CompanyCode" component={TextField} floatingLabelText="Company Code" style={styles.block} />
+          <div>
+            <Field name="VATNumberType" component={SelectField} floatingLabelText="VAT Number Type">
+              <MenuItem value={null} primaryText=" " />
+              {props.vatNumberTypes.map(populateAdminTypes)}
+            </Field>
+          </div>
 
-      <h3>Location Information</h3>
+          <Field name="CompanyCode" component={TextField} floatingLabelText="Company Code" />
 
-      <Field name="Address1" component={TextField} floatingLabelText="Address 1" style={styles.block} />
-      <Field name="BuildingNumber" component={TextField} floatingLabelText="Building Number" style={styles.block} />
-      <Field name="Address2" component={TextField} floatingLabelText="Address 2" style={styles.block} />
-      <Field name="PostalCode" component={TextField} floatingLabelText="Postal Code" style={styles.block} />
-      <Field name="City" component={TextField} floatingLabelText="City" style={styles.block} />
-      <Field name="Region" component={TextField} floatingLabelText="Region" style={styles.block} />
-      <Field name="TradingNames" component={TextField} floatingLabelText="Trading Names" style={styles.block} />
-      <Field name="HeadOfficeCountry" component={TextField} floatingLabelText="Head Office Country" style={styles.block} />
-      <Field name="EmailAddress" component={TextField} floatingLabelText="Email Address" style={styles.block} />
-      <Field name="Website" component={TextField} floatingLabelText="Website" style={styles.block} />
-      <Field name="ContactName" component={TextField} floatingLabelText="Contact Name" style={styles.block} />
-      <Field name="IBAN" component={TextField} floatingLabelText="IBAN" style={styles.block} />
-      <Field name="BIC" component={TextField} floatingLabelText="BIC" style={styles.block} />
+        </fieldset>
+        <br />
+        <fieldset style={styles.firstCol}>
+          <legend>Location Information - Company HQ</legend>
 
-      <h3>Filing Information</h3>
+          <Field name="Address1" component={TextField} floatingLabelText="Address 1" style={styles.block} />
+          <Field name="BuildingNumber" component={TextField} floatingLabelText="Building Number" style={styles.block} />
+          <Field name="Address2" component={TextField} floatingLabelText="Address 2" style={styles.block} />
+          <Field name="PostalCode" component={TextField} floatingLabelText="Postal Code" style={styles.block} />
+          <Field name="City" component={TextField} floatingLabelText="City" style={styles.block} />
+          <Field name="Region" component={TextField} floatingLabelText="Region" style={styles.block} />
+          <Field name="TradingNames" component={TextField} floatingLabelText="Trading Names" style={styles.block} />
+          <Field name="HeadOfficeCountry" component={TextField} floatingLabelText="Head Office Country" style={styles.block} />
+          <Field name="EmailAddress" component={TextField} floatingLabelText="Email Address" style={styles.block} />
+          <Field name="Website" component={TextField} floatingLabelText="Website" style={styles.block} />
+          <Field name="ContactName" component={TextField} floatingLabelText="Contact Name" style={styles.block} />
+          <Field name="IBAN" component={TextField} floatingLabelText="IBAN" style={styles.block} />
+          <Field name="BIC" component={TextField} floatingLabelText="BIC" style={styles.block} />
+        </fieldset>
 
-      <Field name="NationalTaxNumber" component={TextField} floatingLabelText="National Tax Number" style={styles.block} />
-      <Field name="StatisticalOfficeNumber" component={TextField} floatingLabelText="Statistical Office Number" style={styles.block} />
-      <Field name="ChamberOfCommerce" component={TextField} floatingLabelText="Chamber of Commerce" style={styles.block} />
-      <Field name="TaxOfficeName" component={TextField} floatingLabelText="Tax office name" style={styles.block} />
-      <Field name="TaxOfficeAddress" component={TextField} floatingLabelText="Tax office Address" style={styles.block} />
-      <Field name="TaxOfficePostalCode" component={TextField} floatingLabelText="Tax office Postal Code" style={styles.block} />
-      <Field name="TaxOfficeCity" component={TextField} floatingLabelText="Tax office City" style={styles.block} />
-      <Field name="TaxOfficeId" component={TextField} floatingLabelText="Tax office id Names" style={styles.block} />
-      <Field name="FilingNumber" component={TextField} floatingLabelText="Filing Number" style={styles.block} />
-      <Field name="LoginName" component={TextField} floatingLabelText="Login Name" style={styles.block} />
-      <Field name="Password" component={TextField} floatingLabelText="Password" style={styles.block} />
-      
-      <Field name="Certificate" component={UploadField} type="file" label="Certificate" required/>
-      
-      <h3>MOSS Information</h3>
-      <Field name="IsEligibleForEUScheme" component={TextField} floatingLabelText="Eligible for EU Scheme" style={styles.block} />
-      <Field name="IsEligibleForNonEUScheme" component={TextField} floatingLabelText="Eligible for Non-EU Scheme" style={styles.block} />
-      <Field name="IsRegisteredForVATInEU" component={TextField} floatingLabelText="Is registered for VAT in EU" style={styles.block} />
+        <fieldset style={styles.secondCol}>
+          <legend>Location Information - Fiscal Representative</legend>
 
-      <Field name="StartDate" component={DatePicker} floatingLabelText="Date of commencement" style={styles.block} />
-      <Field name="DateofRequest" component={DatePicker} floatingLabelText="Date of request" style={styles.block} />
-      <Field name="DateOfRegistration" component={DatePicker} floatingLabelText="Date of registration" style={styles.block} />
-      <Field name="IsVATGroup" component={Checkbox} label="VAT group" style={styles.block} />
+          <Field name="LocationNameAndSurname" component={TextField} floatingLabelText="Company Name or Name and Surname" style={styles.block} />
+          <Field name="LocationAdress" component={TextField} floatingLabelText="Address" style={styles.block} />
+          <Field name="LocationPostalCode" component={TextField} floatingLabelText="Postal Code" style={styles.block} />
+          <Field name="Place" component={TextField} floatingLabelText="Place" style={styles.block} />
+          <Field name="NIPID" component={TextField} floatingLabelText="NIP ID" style={styles.block} />
+          <Field name="REGONID" component={TextField} floatingLabelText="REGON ID" style={styles.block} />
 
-      <RaisedButton label="Save" type="submit" primary/>
-      <RaisedButton label="Cancel" type="button" secondary/>
-    </form>
-</div>
+        </fieldset>
+        <br />
+        <fieldset style={styles.firstCol}>
+          <legend>Filing Information</legend>
+
+          <Field name="NationalTaxNumber" component={TextField} floatingLabelText="National Tax Number" style={styles.block} />
+          <Field name="StatisticalOfficeNumber" component={TextField} floatingLabelText="Statistical Office Number" style={styles.block} />
+          <Field name="ChamberOfCommerce" component={TextField} floatingLabelText="Chamber of Commerce" style={styles.block} />
+          <Field name="TaxOfficeName" component={TextField} floatingLabelText="Tax office name" style={styles.block} />
+          <Field name="TaxOfficeAddress" component={TextField} floatingLabelText="Tax office Address" style={styles.block} />
+          <Field name="TaxOfficePostalCode" component={TextField} floatingLabelText="Tax office Postal Code" style={styles.block} />
+          <Field name="TaxOfficeCity" component={TextField} floatingLabelText="Tax office City" style={styles.block} />
+          <Field name="TaxOfficeId" component={TextField} floatingLabelText="Tax office id Names" style={styles.block} />
+          <Field name="FilingNumber" component={TextField} floatingLabelText="Filing Number" style={styles.block} />
+          <Field name="LoginName" component={TextField} floatingLabelText="Login Name" style={styles.block} />
+          <Field name="Password" component={TextField} floatingLabelText="Password" style={styles.block} />
+
+          {/*<Field name="Certificate" component={UploadField} type="file" label="Certificate" required/>*/}
+        </fieldset>
+        <fieldset style={styles.secondCol}>
+          <legend>Applicant Information</legend>
+
+          <Field name="NameAndSurname" component={TextField} floatingLabelText="Name & Surname" style={styles.block} />
+          <Field name="Phone" component={TextField} floatingLabelText="Phone" style={styles.block} />
+          <Field name="FaxNumber" component={TextField} floatingLabelText="Fax Number" style={styles.block} />
+          <Field name="EmailAddress" component={TextField} floatingLabelText="Email Address" style={styles.block} />
+          <Field name="CustomsNumber" component={TextField} floatingLabelText="Customs Number" style={styles.block} />
+
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>MOSS Information</legend>
+          <div style={styles.width}>
+            <Field name="IsEligibleForEUScheme" component={Checkbox} label="Eligible for EU Scheme" labelPosition="left" />
+            <Field name="IsEligibleForNonEUScheme" component={Checkbox} label="Eligible for Non-EU Scheme" labelPosition="left" style={{ marginTop: '14px', marginBottom: '14px' }} />
+            <Field name="IsRegisteredForVATInEU" component={Checkbox} label="Is registered for VAT in EU" labelPosition="left" />
+          </div>
+          <Field name="StartDate" component={DatePicker} floatingLabelText="Date of commencement" />
+          <Field name="DateofRequest" component={DatePicker} floatingLabelText="Date of request" />
+          <Field name="DateOfRegistration" component={DatePicker} floatingLabelText="Date of registration" />
+          <div style={styles.width}>
+            <Field name="IsVATGroup" component={Checkbox} label="VAT group" labelPosition="left" style={{ marginTop: '14px', marginBottom: '14px' }} />
+          </div>
+        </fieldset>
+
+        <RaisedButton label="Save" type="submit" primary />
+        <RaisedButton label="Cancel" type="button" secondary />
+      </form>
+    </div>
   );
 };
 
@@ -171,18 +211,14 @@ const validate = (values) => {
 /*eslint-disable */
 ExportSettings = reduxForm({
   form: 'ExportSettings'
-   // a unique identifier for this form
+  // a unique identifier for this form
 })(ExportSettings);
 
 // Decorate with connect to read form values
-const selector = formValueSelector('ExportSettings'); // <-- same as form name
 ExportSettings = connect(
   (state) => {
-    console.log(state)
-    const checkAll = selector(state, 'checkAll'); // <-- has to match field name
-    console.log(checkAll)
     return {
-      checkAll
+      initialValues: state.administration
     };
   }
 )(ExportSettings);
